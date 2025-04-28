@@ -99,16 +99,20 @@ const getPhaseTypeText = (phaseType: string) => {
                             <ul role="list" class="my-4 flex justify-between gap-x-2">
                                 <li>
                                     <ul role="list" class="flex justify-between gap-x-1">
-                                        <li>
-                                            <button type="button" class="inline-flex bg-green-500 text-white items-center gap-x-1.5 rounded-lg px-2.5 py-1.5 xl:text-sm text-md font-semibold shadow-sm">
-                                                {panel.data_json.technology}
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button type="button" class="inline-flex bg-green-500 text-white items-center gap-x-1.5 rounded-lg px-2.5 py-1.5 xl:text-sm text-md font-semibold shadow-sm">
-                                                {panel.data_json.power_watt}W
-                                            </button>
-                                        </li>
+                                        {panel.data_json.technology && (
+                                            <li>
+                                                <button type="button" class="inline-flex bg-green-500 text-white items-center gap-x-1.5 rounded-lg px-2.5 py-1.5 xl:text-sm text-md font-semibold shadow-sm">
+                                                    {panel.data_json.technology}
+                                                </button>
+                                            </li>
+                                        )}
+                                        {panel.data_json.power_watt && (
+                                            <li>
+                                                <button type="button" class="inline-flex bg-green-500 text-white items-center gap-x-1.5 rounded-lg px-2.5 py-1.5 xl:text-sm text-md font-semibold shadow-sm">
+                                                    {panel.data_json.power_watt}W
+                                                </button>
+                                            </li>
+                                        )}
                                     </ul>
                                 </li>
                             </ul>
@@ -146,16 +150,20 @@ const getPhaseTypeText = (phaseType: string) => {
                             <ul role="list" class="my-4 flex justify-between gap-x-2">
                                 <li>
                                     <ul role="list" class="flex justify-between gap-x-1">
-                                        <li>
-                                            <button type="button" class="inline-flex bg-green-500 text-white items-center gap-x-1.5 rounded-lg px-2.5 py-1.5 xl:text-sm text-md font-semibold shadow-sm">
-                                                {inverter.data_json.installation_type}
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button type="button" class="inline-flex bg-green-500 text-white items-center gap-x-1.5 rounded-lg px-2.5 py-1.5 xl:text-sm text-md font-semibold shadow-sm">
-                                                {getPhaseTypeText(inverter.data_json.phase_type)}
-                                            </button>
-                                        </li>
+                                        {inverter.data_json.installation_type && (
+                                            <li>
+                                                <button type="button" class="inline-flex bg-green-500 text-white items-center gap-x-1.5 rounded-lg px-2.5 py-1.5 xl:text-sm text-md font-semibold shadow-sm">
+                                                    {inverter.data_json.installation_type}
+                                                </button>
+                                            </li>
+                                        )}
+                                        {inverter.data_json.phase_type && (
+                                            <li>
+                                                <button type="button" class="inline-flex bg-green-500 text-white items-center gap-x-1.5 rounded-lg px-2.5 py-1.5 xl:text-sm text-md font-semibold shadow-sm">
+                                                    {getPhaseTypeText(inverter.data_json.phase_type)}
+                                                </button>
+                                            </li>
+                                        )}
                                     </ul>
                                 </li>
                             </ul>
@@ -197,11 +205,13 @@ const getPhaseTypeText = (phaseType: string) => {
                             <ul role="list" class="my-4 flex justify-between gap-x-2">
                                 <li>
                                     <ul role="list" class="flex justify-between gap-x-1">
-                                        <li>
-                                            <button type="button" class="inline-flex bg-green-500 text-white items-center gap-x-1.5 rounded-lg px-2.5 py-1.5 xl:text-sm text-md font-semibold shadow-sm">
-                                                {battery.data_json.installation_type}
-                                            </button>
-                                        </li>
+                                        {battery.data_json.installation_type && (
+                                            <li>
+                                                <button type="button" class="inline-flex bg-green-500 text-white items-center gap-x-1.5 rounded-lg px-2.5 py-1.5 xl:text-sm text-md font-semibold shadow-sm">
+                                                    {battery.data_json.installation_type}
+                                                </button>
+                                            </li>
+                                        )}
                                     </ul>
                                 </li>
                             </ul>

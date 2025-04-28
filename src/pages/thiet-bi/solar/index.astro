@@ -1,103 +1,93 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
-import { mockProducts } from "../../../mocks/products";
+import { getSectors } from "../../../lib/api";
 
-const Products = mockProducts.filter(product => product.attributes.title.toLowerCase().includes('solar'));
+const sectors = await getSectors();
+const solarmaxSector = sectors.find(sector => sector.code === 'SLM');
+const products = solarmaxSector?.list_combos || [];
+
+// Lấy danh sách thiết bị từ tất cả các combo
+const equipmentList = products.reduce((acc: any[], combo) => {
+  combo.grouped_merchandises.forEach(group => {
+    group.pre_quote_merchandises.forEach(item => {
+      const equipment = {
+        ...item.merchandise,
+        template: group.template,
+        quantity: item.quantity,
+        price: item.price
+      };
+      acc.push(equipment);
+    });
+  });
+  return acc;
+}, []);
+
+// Phân loại thiết bị theo template
+const solarPanels = equipmentList
+    .filter(item => 
+        item.template.code === 'PIN_PV' &&
+        !item.name.toLowerCase().includes('dây từ') &&
+        !item.name.toLowerCase().includes('dây mạng')
+    )
+    .reduce((unique: any[], item) => {
+        if (!unique.some(panel => panel.name === item.name)) {
+            unique.push(item);
+        }
+        return unique;
+    }, []);
 ---
 
-<Layout title="Tấm pin năng lượng mặt trời">
+<Layout title="Tấm quang năng">
     <div class="bg-white py-24 sm:py-12">
         <div class="mx-auto max-w-7xl px-4 lg:px-8">
-            <div class="mx-auto max-w-2xl lg:mx-0">
-                <h2
-                    class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
-                >
-                    Tấm pin Solarmax
+            <div class="mb-16">
+                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl mb-8">
+                    Tấm quang năng
                 </h2>
-            </div>
-            <div
-                class="pt-5 grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-4"
-            >
-                {
-                    Products.map((product) => (
-                        <div class="bg-white xl:px-4 xl:py-4 px-2  rounded-lg border border-gray-200 ">
-                            <ul
-                                role="list"
-                                class="my-4 flex justify-between gap-x-2"
-                            >
+                <div class="grid grid-cols-2 gap-y-4 gap-x-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4 lg:gap-x-4">
+                    {solarPanels.map((panel) => (
+                        <div class="bg-white xl:px-4 xl:py-4 px-2 rounded-lg border border-gray-200">
+                            <ul role="list" class="my-4 flex justify-between gap-x-2">
                                 <li>
-                                    <ul
-                                        role="list"
-                                        class=" flex justify-between gap-x-1 "
-                                    >
-                                        <li>
-                                            {product.attributes.he && (
-                                            <button
-                                            type="button"
-                                            class="inline-flex bg-green-500 text-white items-center gap-x-1.5 rounded-lg px-2.5 py-1.5 xl:text-sm text-md font-semibold shadow-sm "
-                                            >
-                                            {product.attributes.he}
-                                            </button>
-                                        )}                        
-                                        </li>
-                                        <li>
-                                            {product.attributes.pha && (
-                                            <button
-                                                type="button"
-                                                class="inline-flex bg-green-500 text-white items-center gap-x-1.5 rounded-lg px-2.5 py-1.5 xl:text-sm text-md font-semibold shadow-sm "
-                                            >
-                                                {product.attributes.pha}
-                                            </button>
-                                            )}
-                                        </li>
+                                    <ul role="list" class="flex justify-between gap-x-1">
+                                        {panel.data_json.technology && (
+                                            <li>
+                                                <button type="button" class="inline-flex bg-green-500 text-white items-center gap-x-1.5 rounded-lg px-2.5 py-1.5 xl:text-sm text-md font-semibold shadow-sm">
+                                                    {panel.data_json.technology}
+                                                </button>
+                                            </li>
+                                        )}
+                                        {panel.data_json.power_watt && (
+                                            <li>
+                                                <button type="button" class="inline-flex bg-green-500 text-white items-center gap-x-1.5 rounded-lg px-2.5 py-1.5 xl:text-sm text-md font-semibold shadow-sm">
+                                                    {panel.data_json.power_watt}W
+                                                </button>
+                                            </li>
+                                        )}
                                     </ul>
                                 </li>
-                                <li>                                
-                                </li>
                             </ul>
-                            <ul
-                                role="list"
-                                class="my-4 flex justify-between gap-x-2 bg-white rounded-lg "
-                            >
-                                <li class="flex flex-col justify-center w-full" >
-                                    <div class="rounded-lg mx-auto aspect-[972/1080] w-full bg-gray-100 flex items-center justify-center">
-                                        <div class="text-center p-4">
-                                            <p class="text-gray-600 text-lg font-medium">{product.attributes.title}</p>
-                                            <p class="text-gray-400 mt-2">Placeholder Image</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="flex flex-col justify-center gap-2">
-                                    {
-                                    Array.isArray(product.attributes.highlight) ? (
-                                        product.attributes.highlight.map(
-                                            (highlight: any) => (
-                                                <div class="flex flex-col justify-center  bg-slate-100 rounded-md px-2 py-2 shadow sm:p-2 w-20 h-16">
-                                                    <div class="truncate text-sm font-medium text-gray-500 text-center">
-                                                        {highlight.title}
-                                                    </div>
-                                                    <dd class="truncate mt-1 text-xl font-semibold tracking-tight text-center text-gray-900">
-                                                        {highlight.value}
-                                                    </dd>
-                                                </div>
-                                            )
-                                        )
-                                    ) : null
-                                }
-                                </li>
-                            </ul>
-                            <h3 class="text-xl truncate font-medium text-gray-900">
-                                {product.attributes.title}
-                            </h3>
-                            <div class=" w-full bg-red-500 px-6 my-2 rounded-md  text-center  py-1.5   ">
-                                <h3 class="text-white text-2xl font-semibold ">
-                                    {product.attributes.price}
-                                    <sup>đ</sup>
-                                </h3>
+                            <div class="rounded-lg mx-auto aspect-square w-full flex items-center justify-center mb-4 overflow-hidden">
+                                <img 
+                                    src={panel.images?.[0]?.link || panel.data_sheet_link} 
+                                    alt={panel.name}
+                                    class="w-full h-full object-contain"
+                                />
+                            </div>
+                            <h3 class="text-xl font-medium text-gray-900 mb-2 line-clamp-2">{panel.name}</h3>
+                            <div class="space-y-2 mb-4">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-500">Kích thước:</span>
+                                    <span class="font-medium">{panel.data_json.width_mm}x{panel.data_json.height_mm}mm</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-500">Bảo hành:</span>
+                                    <span class="font-medium">{panel.data_json.warranty_years} năm</span>
+                                </div>
                             </div>
                         </div>
-                    ))
-                }
+                    ))}
+                </div>
             </div>
         </div>
     </div>
