@@ -1,0 +1,292 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import fetchApi from "../../lib/strapi.ts";
+import type Combos from "../../interfaces/combos.ts";
+import Image from "astro/components/Image.astro";
+
+const Combos = await fetchApi<Combos[]>({
+    endpoint: "combos?populate=image", // the content type to fetch
+    wrappedByKey: "data", // the key to unwrap the response
+});
+
+const getCurrentMonthYear = () => {
+    const date = new Date();
+    const month = date.getMonth() + 1; // getMonth() returns 0-11, so add 1 for 1-12
+    const year = date.getFullYear();
+    return { month, year };
+};
+
+const { month, year } = getCurrentMonthYear();
+
+const formatCurrency = (amount: any) => {
+    return amount.toLocaleString("vi-VN");
+};
+---
+
+<Layout title="Gói Combos">
+    <div class="bg-slate-100">
+        <div class="pt-6 py-4">
+            <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                <ul
+                    role="list"
+                    class="mx-auto mt-6 grid max-w-2xl grid-cols-1 xl:gap-4 gap-8 md:max-w-2xl md:grid-cols-2 lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-4"
+                >
+                    {
+                        Combos.map((combo) => (
+                            <div>
+                                <li class="rounded-2xl bg-white xl:px-4 xl:py-4 px-4 py-4">
+                                    <ul
+                                        role="list"
+                                        class="my-4 flex justify-between gap-x-2"
+                                    >
+                                        <li>
+                                            <ul
+                                                role="list"
+                                                class=" flex justify-between gap-x-1 "
+                                            >
+                                                <li>
+                                                    <a
+                                                        href="#"
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                    >
+                                                        <button
+                                                            type="button"
+                                                            class={`inline-flex text-white ${combo.attributes.nhom_combo === "On-Grid" ? "bg-red-600" : combo.attributes.nhom_combo === "Off-Grid" ? "bg-green-600" : "bg-gray-600"} items-center gap-x-1.5 rounded-lg px-2.5 py-1.5 xl:text-sm text-md font-semibold shadow-sm hover:${combo.attributes.nhom_combo === "On-Grid" ? "bg-red-600" : combo.attributes.nhom_combo === "Off-Grid" ? "bg-green-600" : "bg-gray-600"} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-${combo.attributes.nhom_combo === "On-Grid" ? "red-600" : combo.attributes.nhom_combo === "Off-Grid" ? "green-600" : "gray-600"}`}
+                                                        >
+                                                            {
+                                                                combo.attributes
+                                                                    .nhom_combo
+                                                            }
+                                                        </button>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a
+                                                        href="#"
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                    >
+                                                        <button
+                                                            type="button"
+                                                            class={`inline-flex items-center gap-x-1.5 rounded-lg px-2.5 py-1.5 xl:text-sm text-md font-semibold text-white shadow-sm ${
+                                                                combo.attributes
+                                                                    .pha ===
+                                                                "1 pha"
+                                                                    ? "bg-blue-600 hover:bg-blue-600 focus-visible:outline-blue-600"
+                                                                    : combo
+                                                                            .attributes
+                                                                            .pha ===
+                                                                            "3 pha" ||
+                                                                        combo
+                                                                            .attributes
+                                                                            .pha ===
+                                                                            "3 pha áp thấp"
+                                                                      ? "bg-orange-500 hover:bg-orange-500 focus-visible:outline-orange-600"
+                                                                      : combo
+                                                                              .attributes
+                                                                              .pha ===
+                                                                          "3 pha áp cao"
+                                                                        ? "bg-red-500 hover:bg-red-500 focus-visible:outline-red-600"
+                                                                        : "bg-gray-600 hover:bg-gray-600 focus-visible:outline-gray-600"
+                                                            } focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2`}
+                                                        >
+                                                            {
+                                                                combo.attributes
+                                                                    .pha
+                                                            }
+                                                        </button>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a
+                                                href="#"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                <button
+                                                    type="button"
+                                                    class="  px-2.5 py-1.5 xl:text-xl text-xl font-semibold "
+                                                >
+                                                    {combo.attributes.cong_suat}{" "}
+                                                    kW
+                                                </button>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <a
+                                        href={`/goi-san-pham/${combo.attributes.slug}/`}
+                                    >
+                                        <Image
+                                            transition:name={`offgrid${combo.id}`}
+                                            class="rounded-2xl mx-auto aspect-[265/200] w-full "
+                                            src={`https://app.slmsolar.com${combo.attributes.image.data.attributes.formats.small.url}`}
+                                            alt=""
+                                            inferSize
+                                        />
+                                    </a>
+
+                                    <div class=" w-full bg-slate-100 px-6 my-6 rounded-2xl  text-center  py-1.5   ">
+                                        <span>
+                                            Giá niêm yết T{month}/{year}
+                                        </span>
+                                        <h3
+                                            class={`text-3xl font-semibold ${
+                                                combo.attributes.nhom_combo ===
+                                                "On-Grid"
+                                                    ? "text-red-600"
+                                                    : combo.attributes
+                                                            .nhom_combo ===
+                                                        "Off-Grid"
+                                                      ? "text-green-600"
+                                                      : "text-gray-600"
+                                            }`}
+                                        >
+                                            {formatCurrency(
+                                                combo.attributes.gia_niem_yet
+                                            )}
+                                            <sup>đ</sup>
+                                        </h3>
+                                    </div>
+                                    <div class="divide-y divide-gray-100 text-sm leading-6">
+                                        <ul
+                                            role="list"
+                                            class="mt-2 flex justify-between gap-x-6 "
+                                        >
+                                            <li>
+                                                <h3 class="xl:text-lg text-xl font-semibold leading-7 tracking-tight ">
+                                                    Công suất:
+                                                </h3>
+                                            </li>
+                                            <li>
+                                                <p class="xl:text-lg text-xl font-semibold leading-6 ">
+                                                    {combo.attributes.cong_suat}{" "}
+                                                    kW
+                                                </p>
+                                            </li>
+                                        </ul>
+                                        <ul
+                                            role="list"
+                                            class="mt-2 flex justify-between gap-x-6"
+                                        >
+                                            <li>
+                                                <h3 class="xl:text-lg text-xl font-semibold leading-7 tracking-tight ">
+                                                    Hệ điện:
+                                                </h3>
+                                            </li>
+                                            <li>
+                                                <p class="xl:text-lg text-xl leading-6 ">
+                                                    {combo.attributes.pha}
+                                                </p>
+                                            </li>
+                                        </ul>
+                                        <ul
+                                            role="list"
+                                            class="mt-2 flex justify-between gap-x-6"
+                                        >
+                                            <li>
+                                                <h3 class="xl:text-lg text-xl text-nowrap font-semibold leading-7 tracking-tight ">
+                                                    Sản lượng:
+                                                </h3>
+                                            </li>
+                                            <li>
+                                                <p class="xl:text-lg text-xl text-right leading-6 ">
+                                                    {combo.attributes.san_luong}
+                                                    <br />
+                                                    kwh/tháng
+                                                </p>
+                                            </li>
+                                        </ul>
+                                        <ul
+                                            role="list"
+                                            class="mt-2 flex justify-between gap-x-6"
+                                        >
+                                            <li>
+                                                <h3 class="xl:text-lg text-xl font-semibold leading-7 tracking-tight ">
+                                                    Hoàn vốn:
+                                                </h3>
+                                            </li>
+                                            <li>
+                                                <p class="xl:text-lg text-xl leading-6 ">
+                                                    {combo.attributes.hoan_von}
+                                                </p>
+                                            </li>
+                                        </ul>
+                                        <ul
+                                            role="list"
+                                            class="mt-2 flex justify-between gap-x-6"
+                                        >
+                                            <li>
+                                                <h3 class="xl:text-lg text-xl font-semibold leading-7 tracking-tight ">
+                                                    Diện tích lắp đặt:
+                                                </h3>
+                                            </li>
+                                            <li>
+                                                <p class=" xl:text-lg text-xl leading-6 ">
+                                                    {combo.attributes.dien_tich}{" "}
+                                                    m<sup>2</sup>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <ul
+                                        role="list"
+                                        class="mt-6 flex justify-between  gap-x-3"
+                                    >
+                                        <li class="w-2/3">
+                                            <a
+                                                href={`/goi-san-pham/${combo.attributes.slug}/`}
+                                            >
+                                                <button
+                                                    type="button"
+                                                    class={`w-full xl:text-lg inline-flex  ${
+                                                        combo.attributes
+                                                            .nhom_combo ===
+                                                        "On-Grid"
+                                                            ? "bg-white border-red-600 text-red-600"
+                                                            : combo.attributes
+                                                                    .nhom_combo ===
+                                                                "Off-Grid"
+                                                              ? "bg-white border-green-600 text-green-600"
+                                                              : "bg-gray-600 border-gray-600"
+                                                    } items-center gap-x-1.5 rounded-xl border-2 px-2.5 py-1.5 text-lg font-semibold justify-center`}
+                                                >
+                                                    Chi tiết cấu hình
+                                                </button>
+                                            </a>
+                                        </li>
+                                        <li class="w-1/3">
+                                            <a
+                                                href="https://zalo.me/0964920242"
+                                                target="_blank"
+                                            >
+                                                <button
+                                                    type="button"
+                                                    class={`w-full xl:text-lg inline-flex items-center gap-x-1.5 rounded-xl border-2 px-2.5 py-1.5 text-lg font-semibold text-white justify-center ${
+                                                        combo.attributes
+                                                            .nhom_combo ===
+                                                        "On-Grid"
+                                                            ? "bg-red-600 border-red-600"
+                                                            : combo.attributes
+                                                                    .nhom_combo ===
+                                                                "Off-Grid"
+                                                              ? "bg-green-600 border-green-600"
+                                                              : "bg-gray-600 border-gray-600"
+                                                    }`}
+                                                >
+                                                    Liên hệ
+                                                </button>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </div>
+                        ))
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</Layout>

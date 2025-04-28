@@ -1,0 +1,104 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { mockProducts } from "../../../mocks/products";
+
+const Products = mockProducts.filter(product => product.attributes.title.toLowerCase().includes('solar'));
+---
+
+<Layout title="Tấm pin năng lượng mặt trời">
+    <div class="bg-white py-24 sm:py-12">
+        <div class="mx-auto max-w-7xl px-4 lg:px-8">
+            <div class="mx-auto max-w-2xl lg:mx-0">
+                <h2
+                    class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+                >
+                    Tấm pin Solarmax
+                </h2>
+            </div>
+            <div
+                class="pt-5 grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-4"
+            >
+                {
+                    Products.map((product) => (
+                        <div class="bg-white xl:px-4 xl:py-4 px-2  rounded-lg border border-gray-200 ">
+                            <ul
+                                role="list"
+                                class="my-4 flex justify-between gap-x-2"
+                            >
+                                <li>
+                                    <ul
+                                        role="list"
+                                        class=" flex justify-between gap-x-1 "
+                                    >
+                                        <li>
+                                            {product.attributes.he && (
+                                            <button
+                                            type="button"
+                                            class="inline-flex bg-green-500 text-white items-center gap-x-1.5 rounded-lg px-2.5 py-1.5 xl:text-sm text-md font-semibold shadow-sm "
+                                            >
+                                            {product.attributes.he}
+                                            </button>
+                                        )}                        
+                                        </li>
+                                        <li>
+                                            {product.attributes.pha && (
+                                            <button
+                                                type="button"
+                                                class="inline-flex bg-green-500 text-white items-center gap-x-1.5 rounded-lg px-2.5 py-1.5 xl:text-sm text-md font-semibold shadow-sm "
+                                            >
+                                                {product.attributes.pha}
+                                            </button>
+                                            )}
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>                                
+                                </li>
+                            </ul>
+                            <ul
+                                role="list"
+                                class="my-4 flex justify-between gap-x-2 bg-white rounded-lg "
+                            >
+                                <li class="flex flex-col justify-center w-full" >
+                                    <div class="rounded-lg mx-auto aspect-[972/1080] w-full bg-gray-100 flex items-center justify-center">
+                                        <div class="text-center p-4">
+                                            <p class="text-gray-600 text-lg font-medium">{product.attributes.title}</p>
+                                            <p class="text-gray-400 mt-2">Placeholder Image</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="flex flex-col justify-center gap-2">
+                                    {
+                                    Array.isArray(product.attributes.highlight) ? (
+                                        product.attributes.highlight.map(
+                                            (highlight: any) => (
+                                                <div class="flex flex-col justify-center  bg-slate-100 rounded-md px-2 py-2 shadow sm:p-2 w-20 h-16">
+                                                    <div class="truncate text-sm font-medium text-gray-500 text-center">
+                                                        {highlight.title}
+                                                    </div>
+                                                    <dd class="truncate mt-1 text-xl font-semibold tracking-tight text-center text-gray-900">
+                                                        {highlight.value}
+                                                    </dd>
+                                                </div>
+                                            )
+                                        )
+                                    ) : null
+                                }
+                                </li>
+                            </ul>
+                            <h3 class="text-xl truncate font-medium text-gray-900">
+                                {product.attributes.title}
+                            </h3>
+                            <div class=" w-full bg-red-500 px-6 my-2 rounded-md  text-center  py-1.5   ">
+                                <h3 class="text-white text-2xl font-semibold ">
+                                    {product.attributes.price}
+                                    <sup>đ</sup>
+                                </h3>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </div>
+</Layout>

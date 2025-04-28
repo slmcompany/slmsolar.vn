@@ -1,0 +1,37 @@
+{
+    "name": "",
+    "type": "module",
+    "version": "0.0.1",
+    "scripts": {
+        "dev": "astro dev",
+        "start": "astro dev",
+        "build": "astro check && astro build",
+        "preview": "astro preview",
+        "astro": "astro"
+    },
+    "dependencies": {
+        "@astro-community/astro-embed-youtube": "^0.5.2",
+        "@astrojs/check": "^0.8.3",
+        "@astrojs/partytown": "^2.1.1",
+        "@astrojs/react": "^3.6.0",
+        "@astrojs/sitemap": "^3.1.6",
+        "@astrojs/tailwind": "^5.1.0",
+        "@astrolib/seo": "^1.0.0-beta.5",
+        "@fontsource/twinkle-star": "^5.0.20",
+        "@headlessui/react": "^2.1.2",
+        "@heroicons/react": "^2.1.5",
+        "@playform/compress": "^0.1.1",
+        "@types/react": "^18.3.3",
+        "@types/react-dom": "^18.3.0",
+        "antd": "^5.19.4",
+        "astro": "^4.12.2",
+        "astro-embed": "^0.7.2",
+        "astro-robots-txt": "^1.0.0",
+        "framer-motion": "^11.3.19",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "sharp": "^0.33.5",
+        "tailwindcss": "^3.4.7",
+        "typescript": "^5.5.4"
+    }
+}

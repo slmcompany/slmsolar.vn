@@ -1,0 +1,101 @@
+---
+import Layout from "../../../layouts/Layout-chinhanh.astro";
+import Mobile from "../../../components/Mobile.astro";
+import Hoidap from "../../../components/hoidap.astro";
+import Callbox from "../../../components/Callbox.tsx";
+
+import { AstroSeo } from "@astrolib/seo";
+import Ongrid from "../../../components/Ongrid.astro";
+import Offgrid from "../../../components/Offgrid.astro";
+
+const hotline = "0964920242";
+const zalo = "0964920242";
+---
+
+<AstroSeo
+  title="Chi nhánh Bắc Giang"
+  description="Đến năm 2030, Solarmax hoàn thành lắp đặt 1 triệu m2 tấm pin năng lượng mặt trời cho mái nhà Việt."
+/>
+
+<Layout title="Bật để tiết kiệm điện">
+  <div class="lg:hidden md:hidden relative w-full pb-[177.78%]">
+    <img
+      src="/images/chi-nhanh-bac-giang.png"
+      alt="Fallback"
+      class="absolute top-0 left-0 w-full h-full object-cover"
+    />
+  </div>
+
+  <div class="bg-white relative isolate hidden sm:block">
+    <img src="/images/header-cover-hotline-manh.jpeg" alt="" class="w-full" />
+  </div>
+  <Mobile />
+
+  <Ongrid zalo={zalo} />
+
+  <div class="bg-green-100">
+    <div
+      class="bg-[url('/images/cta-bg.png')] bg-no-repeat bg-cover bg-left lg:bg-center sm:bg-right"
+    >
+      <div
+        class="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:flex lg:items-center lg:justify-between lg:px-8"
+      >
+        <h1 class="text-3xl text-white">
+          Trọn gói 100% <br />Cam kết không phát sinh<br
+            class="hidden lg:block sm:hidden"
+          />&nbsp;với mái tôn và mái ngói.
+        </h1>
+        <div class="mt-10 flex items-center gap-x-6 lg:mt-0 lg:flex-shrink-0">
+          <a
+            href={`tel:${hotline}`}
+            class="rounded-md bg-red-600 px-3.5 py-2.5 text-lg font-semibold text-white shadow-sm"
+            >Tư vấn ngay</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <Offgrid zalo={zalo} />
+
+  <div class="bg-slate-100 py-10 sm:py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <ul
+        role="list"
+        class="mx-auto grid max-w-2xl grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-4"
+      >
+        <li>
+          <img
+            class="aspect-[1/1] w-full rounded-2xl object-cover"
+            src="/images/service-1.jpeg"
+            alt=""
+          />
+        </li>
+        <li>
+          <img
+            class="aspect-[1/1] w-full rounded-2xl object-cover"
+            src="/images/service-2.jpeg"
+            alt=""
+          />
+        </li>
+        <li>
+          <img
+            class="aspect-[1/1] w-full rounded-2xl object-cover"
+            src="/images/service-3.jpeg"
+            alt=""
+          />
+        </li>
+        <li>
+          <img
+            class="aspect-[1/1] w-full rounded-2xl object-cover"
+            src="/images/service-4.jpeg"
+            alt=""
+          />
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <Hoidap />
+  <Callbox client:load phone={hotline} message="Liên hệ tư vấn trực tiếp" />
+</Layout>
