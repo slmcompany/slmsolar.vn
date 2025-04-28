@@ -45,8 +45,8 @@ export interface Combo {
 export interface Sector {
     id: number;
     name: string;
-    code: string;
-    description: string | null;
+    description?: string;
+    logo?: string;
     image: string;
     image_rectangular: string;
     sale_phone: string | null;

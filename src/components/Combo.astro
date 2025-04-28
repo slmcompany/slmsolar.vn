@@ -4,9 +4,10 @@ import type { Sector, Combo } from "../interfaces/combos.ts";
 export interface Props {
     nhom_combo: string;
     zalo: string;
+    comboId?: number;
 }
 
-const { nhom_combo, zalo } = Astro.props;
+const { nhom_combo, zalo, comboId } = Astro.props;
 
 // Fetch data from API with error handling
 let Combos: Combo[] = [];
@@ -27,6 +28,9 @@ try {
         
         Combos = sector.list_combos.filter(combo => {
             const mappedType = typeMap[nhom_combo];
+            if (comboId) {
+                return combo.id === comboId;
+            }
             return combo.installation_type === mappedType;
         });
     }
@@ -145,7 +149,7 @@ const formatPaybackPeriod = (years: number) => {
                                         </button>
                                     </li>
                                 </ul>
-                                <a href={`/goi-san-pham/${combo.code}/`}>
+                                <a href={`/goi-san-pham/${combo.id}/`}>
                                     <div class="rounded-2xl mx-auto aspect-square w-full overflow-hidden">
                                         <img 
                                             src={combo.image} 
@@ -216,7 +220,7 @@ const formatPaybackPeriod = (years: number) => {
                                 </div>
                                 <ul role="list" class="mt-6 flex justify-between gap-x-3">
                                     <li class="w-2/3">
-                                        <a href={`/goi-san-pham/${combo.code}/`}>
+                                        <a href={`/goi-san-pham/${combo.id}/`}>
                                             <button
                                                 type="button"
                                                 class={`w-full xl:text-lg inline-flex ${
