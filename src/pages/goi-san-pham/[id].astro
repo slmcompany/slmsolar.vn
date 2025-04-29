@@ -44,6 +44,7 @@ interface MerchandiseData {
   power_watt: number;
   area_m2: number;
   warranty_years?: number;
+  gm?: number;
   [key: string]: any;
 }
 
@@ -58,6 +59,7 @@ interface PreQuoteMerchandise {
   quantity: number;
   price: number;
   merchandise: Merchandise;
+  gm?: number;
 }
 
 interface GroupedMerchandise {
@@ -192,6 +194,11 @@ const formatPaybackPeriod = (years: number) => {
     return `${fullYears} năm`;
   }
   return `${fullYears} năm ${months} tháng`;
+};
+
+const calculatePriceWithGM = (price: number, gm: number = 0) => {
+  if (gm === 0) return price;
+  return Math.round(price * (1 + gm / 100));
 };
 
 const getTotalPower = (combo: PackageData) => {
@@ -393,7 +400,7 @@ const getPhaseTypeText = (phaseType: string | undefined) => {
                     )}
                     <div class="flex justify-between items-center mt-2">
                       <p class="text-base text-red-600 font-semibold">
-                        {formatCurrency(firstItem.price)}đ
+                        {formatCurrency(calculatePriceWithGM(firstItem.price, firstItem.gm))}đ
                       </p>
                       <div class="flex items-center gap-1">
                         <p class="text-xs text-gray-500 font-medium">Số lượng</p>
@@ -420,7 +427,11 @@ const getPhaseTypeText = (phaseType: string | undefined) => {
         </div>
         <div class="bg-red-600 flex items-center px-2 py-1 rounded ml-4 border border-white">
           <p class="text-xl font-bold text-white">
-            {formatCurrency(pkgData.total_price)}
+            {formatCurrency(pkgData.grouped_merchandises.reduce((total: number, group: GroupedMerchandise) => {
+              return total + group.pre_quote_merchandises.reduce((groupTotal: number, item: PreQuoteMerchandise) => {
+                return groupTotal + (item.quantity * calculatePriceWithGM(item.price, item.gm));
+              }, 0);
+            }, 0))}
           </p>
           <p class="text-sm font-bold text-white ml-0.5">đ</p>
         </div>
