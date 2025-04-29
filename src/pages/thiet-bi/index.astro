@@ -67,10 +67,6 @@ const batteries = equipmentList
         return unique;
     }, []);
 
-console.log('Solar Panels:', solarPanels);
-console.log('Inverters:', inverters);
-console.log('Batteries:', batteries);
-
 const getPhaseTypeText = (phaseType: string) => {
     if (phaseType.includes('3-phase high voltage')) {
         return '3 pha áp cao';

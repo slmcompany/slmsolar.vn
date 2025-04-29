@@ -1,6 +1,5 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import Image from "astro/components/Image.astro";
 import ImageCarousel from "../../components/ImageCarousel";
 
 interface Content {
@@ -124,9 +123,9 @@ const cleanedContent = cleanHtmlContent(article.attributes.content);
                                 height="100%" 
                                 src={`https://www.youtube.com/embed/${article.attributes.youtube_id}`}
                                 title={article.attributes.title}
-                                frameborder="0" 
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                 allowfullscreen
+                                style="border: none;"
                             ></iframe>
                         ) : article.attributes.media_contents.length > 1 ? (
                             <>

@@ -1,7 +1,27 @@
 ---
-import ComboComponent from "../../components/Combo.astro";
-import type { Combo, Sector } from "../../interfaces/combos.ts";
 import Layout from "../../layouts/Layout.astro";
+
+interface Sector {
+  id: number;
+  name: string;
+  image?: string;
+  logo?: string;
+  list_combos: Combo[];
+}
+
+interface Combo {
+  id: number;
+  name: string;
+  description?: string;
+  image: string;
+  installation_type: string;
+  total_price: number;
+  payback_period: number;
+  grouped_merchandises: GroupedMerchandise[];
+  phase_type?: string;
+  code: string;
+  output_max: number;
+}
 
 interface PackageData {
   id: number;
@@ -11,7 +31,7 @@ interface PackageData {
   installation_type: string;
   total_price: number;
   payback_period: number;
-  grouped_merchandises: any[];
+  grouped_merchandises: GroupedMerchandise[];
   phase_type?: string;
   name: string;
   code: string;
@@ -117,31 +137,6 @@ const getTotalPower = (combo: PackageData) => {
   return pvGroup.pre_quote_merchandises.reduce((total: number, item: PreQuoteMerchandise) => {
     return total + (item.quantity * item.merchandise.data_json.power_watt);
   }, 0) / 1000; // Convert to kW
-};
-
-const getTotalArea = (combo: PackageData) => {
-  const pvGroup = combo.grouped_merchandises.find((g: GroupedMerchandise) => g.template.code === 'PIN_PV');
-  if (!pvGroup) return 0;
-  return pvGroup.pre_quote_merchandises.reduce((total: number, item: PreQuoteMerchandise) => {
-    return total + (item.quantity * item.merchandise.data_json.area_m2);
-  }, 0);
-};
-
-const getPhaseType = (combo: PackageData) => {
-  const phaseType = combo.phase_type?.toLowerCase() || '';
-  if (phaseType.includes('3-phase')) {
-    if (phaseType.includes('low voltage')) {
-      return '3-phase-low';
-    }
-    if (phaseType.includes('high voltage')) {
-      return '3-phase-high';
-    }
-    return '3-phase';
-  }
-  if (phaseType.includes('1-phase')) {
-    return '1-phase';
-  }
-  return '';
 };
 
 const getPhaseTypeText = (phaseType: string | undefined) => {
@@ -256,8 +251,8 @@ const getPhaseTypeText = (phaseType: string | undefined) => {
       <!-- Equipment List -->
       <div class="p-4 space-y-3">
         {pkgData.grouped_merchandises
-          ?.filter(group => group.template.is_main)
-          .map((group, index) => {
+          ?.filter((group: GroupedMerchandise) => group.template.is_main)
+          .map((group: GroupedMerchandise) => {
             const firstItem = group.pre_quote_merchandises[0];
             if (!firstItem) return null;
 
@@ -356,7 +351,7 @@ const getPhaseTypeText = (phaseType: string | undefined) => {
       <div class="p-4 bg-white mt-4">
         <h3 class="text-base font-bold text-gray-500 mb-4 text-center">DANH MỤC THIẾT BỊ</h3>
 
-        {pkgData.grouped_merchandises?.map((group, index) => (
+        {pkgData.grouped_merchandises?.map((group: GroupedMerchandise, index: number) => (
           <div class="border-b border-gray-200 py-3">
             <div class="flex gap-3 justify-between items-center">
               <p class="w-6 text-lg font-medium text-gray-900 text-center">{index + 1}</p>

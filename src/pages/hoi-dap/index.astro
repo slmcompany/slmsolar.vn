@@ -216,7 +216,7 @@ const articles = sector1?.list_contents
         }
 
         // Get articles data from the page
-        const articlesData = document.querySelector('script[type="application/json"]');
+        const articlesData = document.getElementById('articles-data');
         const articles: Article[] = articlesData ? JSON.parse(articlesData.textContent || '[]') : [];
 
         function showVideoModal(videoId: string) {
@@ -251,7 +251,7 @@ const articles = sector1?.list_contents
     </script>
 
     <!-- Store articles data for JavaScript -->
-    <script type="application/json">
+    <script type="application/json" is:inline>
         {JSON.stringify(articles)}
     </script>
 </Layout>

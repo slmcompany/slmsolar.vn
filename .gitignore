@@ -8,7 +8,6 @@ coverage
 
 # Production
 build
-dist
 
 # Misc
 .DS_Store
@@ -28,5 +27,4 @@ yarn-error.log*
 
 # IDE
 .idea
-.vscode dist/
-dist/
+.vscode

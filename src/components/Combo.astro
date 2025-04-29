@@ -14,7 +14,57 @@ let Combos: Combo[] = [];
 try {
     const response = await fetch('https://api.slmglobal.vn/api/sector');
     if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorData = await response.text();
+        console.error('API Error Details:', {
+            status: response.status,
+            statusText: response.statusText,
+            errorData
+        });
+        // Add fallback data
+        Combos = [{
+            id: 1,
+            code: "COMBO-001",
+            name: "Combo Mẫu",
+            description: "Combo pin mặt trời mẫu",
+            installation_type: nhom_combo === "On-Grid" ? "Ongrid" : "Hybrid",
+            phase_type: "1-phase",
+            total_price: 50000000,
+            payback_period: 5,
+            output_max: 5000,
+            output_min: 3000,
+            best_selling: true,
+            image: "/images/fallback-combo.jpg",
+            grouped_merchandises: [{
+                template: { 
+                    name: "Pin mặt trời",
+                    code: 'PIN_PV',
+                    is_main: true
+                },
+                pre_quote_merchandises: [{
+                    quantity: 1,
+                    merchandise: {
+                        name: "Pin mặt trời 5kW",
+                        code: "PV-5000",
+                        description_in_quotation: "Pin mặt trời công suất 5kW",
+                        data_json: {
+                            power_watt: 5000,
+                            width_mm: 2000,
+                            height_mm: 1000,
+                            thickness_mm: 40,
+                            area_m2: 20,
+                            weight_kg: 25,
+                            technology: "Monocrystalline",
+                            warranty_years: 25
+                        },
+                        brand: {
+                            name: "SLM Solar",
+                            code: "SLM"
+                        }
+                    }
+                }]
+            }]
+        }];
+        return;
     }
     const sectors: Sector[] = await response.json();
     const sector = sectors.find(s => s.id === 1);
