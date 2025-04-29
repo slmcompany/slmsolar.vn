@@ -159,8 +159,19 @@ const getPhaseTypeText = (phaseType: string | undefined) => {
 <div class="bg-slate-800 z-50 absolute w-full">
   <div class="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
     <div class="bg-white rounded-xl">
+      <!-- Close Button -->
+      <div class="absolute top-16 right-1">
+        <button 
+          onclick="window.history.back()"
+          class="w-8 h-8 flex items-center justify-center rounded-full bg-red-500 hover:bg-red-600"
+        >
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
       <!-- Product Header Card -->
-      <div class="bg-white rounded-xl m-4 mt-4">
+      <div class="bg-white rounded-xl m-4 mt-4 pt-5">
         <div class="flex gap-4 items-center">
           <img 
             src={pkgData.image} 
@@ -256,7 +267,7 @@ const getPhaseTypeText = (phaseType: string | undefined) => {
                   <div class="relative">
                     {firstItem.merchandise.data_json?.warranty_years && (
                       <div class="absolute bottom-1 left-1 bg-red-600 px-2 py-0.5 rounded z-10">
-                        <p class="text-xs text-white font-medium">
+                        <p class="text-xs text-white font-medium leading-4 whitespace-nowrap">
                           Bảo hành {firstItem.merchandise.data_json.warranty_years} năm
                         </p>
                       </div>
@@ -389,7 +400,7 @@ const getPhaseTypeText = (phaseType: string | undefined) => {
           <img 
             src="/images/qr-bank.png" 
             alt="QR Code"
-            class="w-30 h-30 rounded max-h-30"
+            class="h-28 rounded "
           />
         </div>
       </div>
