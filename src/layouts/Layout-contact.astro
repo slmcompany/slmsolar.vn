@@ -1,5 +1,6 @@
 ---
 import Header from "../components/Header.tsx";
+import { PHONE_NUMBER } from "../utils/phone";
 interface Props {
   title: string;
 }
@@ -70,7 +71,7 @@ import "@fontsource/twinkle-star";
 
     <Callbox
       client:load
-      phone="0969663387"
+      phone={PHONE_NUMBER}
       message="Liên hệ tư vấn trực tiếp"
     />
   </body>

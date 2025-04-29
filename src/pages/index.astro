@@ -7,6 +7,7 @@ import Hoidap from "../components/hoidap.astro";
 import { AstroSeo } from "@astrolib/seo";
 import Ongrid from "../components/Ongrid.astro";
 import Offgrid from "../components/Offgrid.astro";
+import { PHONE_NUMBER } from "../utils/phone";
 ---
 
 <AstroSeo
@@ -23,7 +24,7 @@ import Offgrid from "../components/Offgrid.astro";
 
   <Mobile />
 
-  <Ongrid zalo="0964920242" />
+  <Ongrid zalo={PHONE_NUMBER} />
 
   <div class="bg-green-100 block sm:block lg:hidden">
     <div class="bg-left lg:bg-center sm:bg-right">
@@ -57,7 +58,7 @@ import Offgrid from "../components/Offgrid.astro";
     </div>
   </div>
 
-  <Offgrid zalo="0964920242" />
+  <Offgrid zalo={PHONE_NUMBER} />
 
   <div class="bg-slate-100 py-10 sm:py-32">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">

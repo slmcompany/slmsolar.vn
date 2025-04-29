@@ -29,7 +29,7 @@ const CallBoxModule: React.FC<CallBoxModuleProps> = ({ phone, message }) => (
           }} // Define when each animation should start
           style={{
             alignItems: "center",
-            backgroundColor: "blue",
+            backgroundColor: "rgb(220 38 38)",
             height: "56px",
             width: "56px",
             position: "absolute",
@@ -113,7 +113,7 @@ const CallBoxModule: React.FC<CallBoxModuleProps> = ({ phone, message }) => (
               width: "36px",
               height: "36px",
               borderRadius: "50%",
-              backgroundColor: "blue",
+              backgroundColor: "rgb(220 38 38)",
               opacity: "0.8",
               textAlign: "center",
               color: "white",
