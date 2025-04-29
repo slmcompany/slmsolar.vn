@@ -210,8 +210,8 @@ const getTotalPower = (combo: PackageData) => {
 };
 
 const getProductionRange = (power: number) => {
-  const minProduction = Math.round(power * 80);
-  const maxProduction = Math.round(power * 120);
+  const minProduction = Math.round(power * 80 / 10) * 10;
+  const maxProduction = Math.round(power * 120 / 10) * 10;
   return `${minProduction}-${maxProduction} kWh/tháng`;
 };
 
