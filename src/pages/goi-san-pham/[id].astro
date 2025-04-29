@@ -155,12 +155,23 @@ const getPhaseTypeText = (phaseType: string | undefined) => {
   <div class="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
     <div class="bg-white rounded-xl">
       <!-- Close Button -->
-      <div class="absolute top-16 right-1">
+      <div class="absolute top-16 right-1 lg:hidden">
         <button 
           onclick="window.history.back()"
           class="w-8 h-8 flex items-center justify-center rounded-full bg-red-500 hover:bg-red-600"
         >
           <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <!-- PC Close Button -->
+      <div class="absolute top-4 right-4 hidden lg:block">
+        <button 
+          onclick="window.history.back()"
+          class="w-8 h-8 flex items-center justify-center rounded-full bg-white hover:bg-gray-100 border border-gray-200"
+        >
+          <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
@@ -227,22 +238,21 @@ const getPhaseTypeText = (phaseType: string | undefined) => {
         </div>
 
         <div class="p-3 relative">
-          <div class="mb-3 pr-24">
+          <div class="mb-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-1">
             <h2 class="text-lg font-bold text-green-900 leading-5">
               {pkgData.title}
             </h2>
-          </div>
-
-          <div class="absolute right-4 top-3 flex flex-col gap-1">
-            <div class="bg-slate-100 py-1 px-3 rounded-full min-w-20 text-center">
-              <p class="text-xs text-gray-600">
-                {pkgData.installation_type === "Ongrid" ? "HỆ BÁM TẢI" : "HỆ ĐỘC LẬP"}
-              </p>
-            </div>
-            <div class="bg-slate-100 py-1 px-3 rounded-full min-w-20 text-center">
-              <p class="text-xs text-gray-600">
-                {getPhaseTypeText(pkgData.phase_type)}
-              </p>
+            <div class="flex flex-wrap gap-1">
+              <div class="bg-white py-1 px-3 rounded-full min-w-20 text-center border border-gray-200 shadow-sm">
+                <p class="text-xs text-gray-600">
+                  {pkgData.installation_type === "Ongrid" ? "HỆ BÁM TẢI" : "HỆ ĐỘC LẬP"}
+                </p>
+              </div>
+              <div class="bg-white py-1 px-3 rounded-full min-w-20 text-center border border-gray-200 shadow-sm">
+                <p class="text-xs text-gray-600">
+                  {getPhaseTypeText(pkgData.phase_type)}
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -369,9 +379,7 @@ const getPhaseTypeText = (phaseType: string | undefined) => {
       <!-- Tax Info and Hotline -->
       <div class="bg-slate-100 p-2.5 px-4 flex justify-between items-center gap-4">
         <div class="flex-1">
-          <p class="text-xs leading-4 text-gray-500">Giá đã bao gồm thuế. Phí vận chuyển và các chi phí</p>
-          <p class="text-xs leading-4 text-gray-500">khác (nếu có) sẽ được thông báo tới quý khách hàng</p>
-          <p class="text-xs leading-4 text-gray-500">thông qua nhân viên tư vấn.</p>
+          <p class="text-xs leading-4 text-gray-500">Giá đã bao gồm thuế. Phí vận chuyển và các chi phí khác (nếu có) sẽ được thông báo tới quý khách hàng thông qua nhân viên tư vấn.</p>
         </div>
         <a href="tel:0969663387" class="bg-red-600 flex items-center gap-2 py-1 px-3 rounded-full">
           <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -83,6 +83,32 @@ try {
             }
             return combo.installation_type === mappedType;
         });
+
+        // Sort combos: 1-phase first, then 3-phase low voltage, then 3-phase high voltage, then by price
+        Combos.sort((a, b) => {
+            const aPhase = a.phase_type?.toLowerCase() || '';
+            const bPhase = b.phase_type?.toLowerCase() || '';
+            
+            // Get phase type priority (lower number = higher priority)
+            const getPhasePriority = (phase: string) => {
+                if (phase.includes('1-phase')) return 1;
+                if (phase.includes('3-phase low voltage')) return 2;
+                if (phase.includes('3-phase high voltage')) return 3;
+                if (phase.includes('3-phase')) return 4;
+                return 5;
+            };
+            
+            const aPriority = getPhasePriority(aPhase);
+            const bPriority = getPhasePriority(bPhase);
+            
+            // First sort by phase priority
+            if (aPriority !== bPriority) {
+                return aPriority - bPriority;
+            }
+            
+            // Then sort by price within the same phase type
+            return a.total_price - b.total_price;
+        });
     }
 } catch (error) {
     console.error('Error fetching combo data:', error);
