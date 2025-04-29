@@ -271,7 +271,7 @@ const formatPaybackPeriod = (years: number) => {
                                         </li>
                                         <li>
                                             <p class="xl:text-lg text-xl text-right leading-6 whitespace-nowrap">
-                                                {Math.round(getTotalPower(combo) * 4.5)} kwh/tháng
+                                                {combo.output_min}-{combo.output_max} kwh/tháng
                                             </p>
                                         </li>
                                     </ul>
