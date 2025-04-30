@@ -135,6 +135,12 @@ const getTotalPower = (combo: Combo) => {
     }, 0) / 1000; // Convert to kW
 };
 
+const getProductionRange = (power: number) => {
+    const minProduction = Math.round(power * 80 / 10) * 10;
+    const maxProduction = Math.round(power * 120 / 10) * 10;
+    return `${minProduction}-${maxProduction} kWh/tháng`;
+};
+
 const getTotalArea = (combo: Combo) => {
     const pvGroup = combo.grouped_merchandises.find((g) => g.template.code === 'PIN_PV');
     if (!pvGroup) return 0;
@@ -271,7 +277,7 @@ const formatPaybackPeriod = (years: number) => {
                                         </li>
                                         <li>
                                             <p class="xl:text-lg text-xl text-right leading-6 whitespace-nowrap">
-                                                {combo.output_min}-{combo.output_max} kwh/tháng
+                                                {combo.output_min}-{combo.output_max} kWh/tháng
                                             </p>
                                         </li>
                                     </ul>
