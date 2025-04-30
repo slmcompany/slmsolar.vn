@@ -38,6 +38,7 @@ interface PackageData {
   name: string;
   code: string;
   output_max: number;
+  output_min: number;
 }
 
 interface MerchandiseData {
@@ -270,7 +271,7 @@ const getPhaseTypeText = (phaseType: string | undefined) => {
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
                 <p class="text-sm text-gray-500">
-                  Sản lượng: {getProductionRange(getTotalPower(pkgData))}
+                  Sản lượng: {pkgData.output_min}-{pkgData.output_max} kWh/tháng
                 </p>
               </div>
               <div class="flex gap-2 items-center">
