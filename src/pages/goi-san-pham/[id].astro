@@ -334,6 +334,21 @@ const getPhaseTypeText = (phaseType: string | undefined) => {
         </div>
       </div>
 
+      <!-- Price and Commitment -->
+      <div class="bg-slate-100 p-4 flex justify-between items-center mt-4">
+        <div class="flex-1">
+          <p class="text-sm font-bold text-gray-900 leading-5">Trọn gói 100%</p>
+          <p class="text-sm font-bold text-gray-900 leading-5">Cam kết không phát sinh</p>
+          <p class="text-sm font-bold text-gray-900 leading-5">với mái ngói, mái tôn</p>
+        </div>
+        <div class="bg-red-600 flex items-center px-2 py-1 rounded ml-4 border border-white">
+          <p class="text-xl font-bold text-white">
+            {formatCurrency(pkgData.total_price)}
+          </p>
+          <p class="text-sm font-bold text-white ml-0.5">đ</p>
+        </div>
+      </div>
+
       <!-- Equipment List -->
       <div class="p-4 space-y-3">
         {pkgData.grouped_merchandises
@@ -416,21 +431,6 @@ const getPhaseTypeText = (phaseType: string | undefined) => {
               </div>
             );
           })}
-      </div>
-
-      <!-- Price and Commitment -->
-      <div class="bg-slate-100 p-4 flex justify-between items-center">
-        <div class="flex-1">
-          <p class="text-sm font-bold text-gray-900 leading-5">Trọn gói 100%</p>
-          <p class="text-sm font-bold text-gray-900 leading-5">Cam kết không phát sinh</p>
-          <p class="text-sm font-bold text-gray-900 leading-5">với mái ngói, mái tôn</p>
-        </div>
-        <div class="bg-red-600 flex items-center px-2 py-1 rounded ml-4 border border-white">
-          <p class="text-xl font-bold text-white">
-            {formatCurrency(pkgData.total_price)}
-          </p>
-          <p class="text-sm font-bold text-white ml-0.5">đ</p>
-        </div>
       </div>
 
       <!-- Equipment List (Duplicated) -->
