@@ -23,6 +23,7 @@ interface Combo {
   phase_type?: string;
   code: string;
   output_max: number;
+  output_min: number;
 }
 
 interface PackageData {
@@ -159,7 +160,8 @@ export async function getStaticPaths() {
           phase_type: combo.phase_type,
           name: combo.name,
           code: combo.code,
-          output_max: combo.output_max
+          output_max: combo.output_max,
+          output_min: combo.output_min
         } as PackageData,
         zalo: 'your-zalo-number',
         sector: sector,
