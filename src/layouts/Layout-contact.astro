@@ -1,0 +1,136 @@
+---
+import Header from "../components/Header.tsx";
+import { PHONE_NUMBER } from "../utils/phone";
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+import Callbox from "../components/Callbox.tsx";
+import { ViewTransitions } from "astro:transitions";
+import "@fontsource/twinkle-star";
+---
+
+<html lang="vi">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      type="text/partytown"
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-VNYXEPHQKW"></script>
+    <script type="text/partytown">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-VNYXEPHQKW");
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script type="text/partytown">
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+          "gtm.start": new Date().getTime(),
+          event: "gtm.js",
+        });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-M8TDZH8K");
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="generator" content={Astro.generator} />
+    <ViewTransitions />
+
+    <title>{title}</title>
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-M8TDZH8K"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"></iframe></noscript
+    >
+    <!-- End Google Tag Manager (noscript) -->
+    <Header client:load />
+
+    <slot />
+
+    <Callbox
+      client:load
+      phone={PHONE_NUMBER}
+      message="Liên hệ tư vấn trực tiếp"
+    />
+  </body>
+</html>
+<style is:global>
+  @font-face {
+    font-family: "Barlow-Regular";
+    src: url("/fonts/Barlow-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Barlow-Bold";
+    src: url("/fonts/Barlow-Bold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: bold;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Barlow-SemiBold";
+    src: url("/fonts/Barlow-SemiBold.ttf") format("truetype");
+    font-weight: medium;
+    font-style: medium;
+    font-display: swap;
+  }
+
+  :root {
+    --accent: 136, 58, 234;
+    --accent-light: 224, 204, 250;
+    --accent-dark: 49, 10, 101;
+    --accent-gradient: linear-gradient(
+      45deg,
+      rgb(var(--accent)),
+      rgb(var(--accent-light)) 30%,
+      white 60%
+    );
+  }
+
+  html {
+    font-family: "Barlow-Regular", system-ui, sans-serif;
+    background: #13151a;
+    background-size: 224px;
+  }
+  h1 {
+    font-family: "Barlow-Bold", system-ui, sans-serif;
+    font-size: 2.5rem;
+    color: white;
+  }
+
+  code {
+    font-family:
+      Menlo,
+      Monaco,
+      Lucida Console,
+      Liberation Mono,
+      DejaVu Sans Mono,
+      Bitstream Vera Sans Mono,
+      Courier New,
+      monospace;
+  }
+</style>

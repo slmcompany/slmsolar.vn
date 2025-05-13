@@ -1,0 +1,24 @@
+---
+import VideoSolar from "../components/video.solar.tsx";
+---
+
+<div class="bg-slate-100 lg:hidden md:hidden">
+    <div class="relative isolate">
+        <div class="mx-auto max-w-7xl pt-10">
+            <div class="mx-auto max-w-2xl px-6">
+                <h1
+                    class="max-w-lg text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl"
+                >
+                    Đầu tư 1 lần, <br />4 năm hoàn vốn
+                </h1>
+                <p class="mt-4 text-lg leading-8 w-4/5 text-gray-600">
+                    Điện mặt trời SoLarMax không chỉ là khoản đầu tư 4-5 năm thu
+                    hồi vốn, mà còn giúp chống nóng mái nhà từ 5-6 độ C.
+                </p>
+            </div>
+            <div class="mt-6">
+                <VideoSolar client:load />
+            </div>
+        </div>
+    </div>
+</div>

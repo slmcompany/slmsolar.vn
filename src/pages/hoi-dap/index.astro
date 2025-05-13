@@ -1,0 +1,257 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Image from "astro/components/Image.astro";
+import ImageCarousel from "../../components/ImageCarousel";
+
+interface Content {
+    title: string;
+    slug?: string;
+    id: number;
+    content: string;
+    media_contents: Array<{
+        link: string;
+        kind: string;
+    }>;
+    category?: {
+        image: string;
+        code: string;
+        name: string;
+        sector: string;
+    };
+    created_at?: string;
+}
+
+interface Sector {
+    id: number;
+    name: string;
+    code: string;
+    image: string;
+    image_rectangular: string;
+    description: string | null;
+    tech_phone: string | null;
+    sale_phone: string | null;
+    post_count?: number;
+}
+
+interface Article {
+    id: number;
+    title: string;
+    slug: string;
+    content: string;
+    isVideo: boolean;
+    youtubeId: string;
+    imageUrl: string;
+    category?: {
+        image: string;
+        code: string;
+        name: string;
+        sector: string;
+    };
+    created_at?: string;
+    media_contents: Array<{
+        link: string;
+        kind: string;
+    }>;
+}
+
+const response = await fetch('https://api.slmglobal.vn/api/sector');
+const sectors = await response.json();
+const sector1 = sectors.find((sector: Sector) => sector.id === 1);
+
+const articles = sector1?.list_contents
+    .filter((content: Content) => content.category?.code !== 'EBK')
+    .map((content: Content): Article => {
+        const mediaContent = content.media_contents[0];
+        const isVideo = mediaContent?.kind === 'video';
+        const youtubeId = isVideo ? mediaContent?.link : 'dQw4w9WgXcQ';
+        const imageUrl = isVideo 
+            ? `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`
+            : mediaContent?.link || content.category?.image || '/images/projects/default.jpg';
+
+        // Remove HTML tags and special characters from content
+        const cleanContent = content.content
+            .replace(/<[^>]*>/g, '') // Remove HTML tags
+            .replace(/&nbsp;/g, ' ') // Replace &nbsp; with space
+            .replace(/\s+/g, ' ') // Replace multiple spaces with single space
+            .trim() // Remove leading/trailing spaces
+            .slice(0, 100) + '...'; // Limit to 100 characters and add ellipsis
+
+        return {
+            id: content.id,
+            title: content.title,
+            slug: content.slug || content.id.toString(),
+            content: cleanContent,
+            isVideo: isVideo,
+            youtubeId: youtubeId,
+            imageUrl: imageUrl,
+            category: content.category,
+            created_at: content.created_at,
+            media_contents: content.media_contents
+        };
+    }) || [];
+---
+
+<Layout title="Hỏi đáp">
+    <div class="min-h-screen bg-white">
+        <!-- Title Section -->
+        <div class="container mx-auto px-0 md:px-4 pt-16 max-w-7xl">
+            <div class="py-6">
+                <h1 class="text-3xl font-bold text-gray-900">Hỏi đáp</h1>
+            </div>
+        </div>
+
+        <!-- Articles List -->
+        <div class="container mx-auto px-0 md:px-4 max-w-7xl">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 md:gap-4">
+                {articles.map((article: Article) => (
+                    <div class="bg-white overflow-hidden border-t border-b border-gray-100">
+                        <!-- User Info Bar -->
+                        <div class="flex items-center p-4 border-b border-gray-100">
+                            <img 
+                                src={sector1?.image_rectangular || '/images/projects/default.jpg'} 
+                                alt={sector1?.name}
+                                class="w-8 h-8 rounded-full mr-2 object-contain border border-gray-200"
+                            />
+                            <span class="text-sm font-semibold text-gray-900">{article.category?.name}</span>
+                            <span class="text-xs text-gray-500 ml-2">{article.created_at ? new Date(article.created_at).toLocaleDateString() : ''}</span>
+                        </div>
+
+                        <!-- Image/Video -->
+                        {article.imageUrl && (
+                            <div class="relative aspect-square">
+                                {article.media_contents.length > 1 ? (
+                                    <ImageCarousel 
+                                        client:load
+                                        mediaContents={article.media_contents}
+                                        title={article.title}
+                                    />
+                                ) : (
+                                    <>
+                                        <img 
+                                            src={article.imageUrl} 
+                                            alt={article.title}
+                                            class="w-full h-full object-cover"
+                                        />
+                                        {article.isVideo && (
+                                            <button 
+                                                class="absolute inset-0 flex items-center justify-center"
+                                                onclick={`showVideoModal('${article.youtubeId}')`}
+                                            >
+                                                <div class="bg-black bg-opacity-50 rounded-full p-4">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                                                    </svg>
+                                                </div>
+                                            </button>
+                                        )}
+                                    </>
+                                )}
+                            </div>
+                        )}
+
+                        <!-- Content -->
+                        <div class="p-4">
+                            <a href={`/hoi-dap/${article.slug}`}>
+                                <h3 class="text-base font-semibold text-gray-900 mb-2 line-clamp-2 hover:text-red-600 transition-colors">{article.title}</h3>
+                            </a>
+                            <p class="text-gray-600 text-sm line-clamp-3">
+                                {article.content}
+                                <a 
+                                    href={`/hoi-dap/${article.slug}`}
+                                    class="text-red-600 text-sm font-medium ml-1"
+                                >
+                                    Xem chi tiết
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Modal -->
+    <div id="video-modal" class="fixed inset-0 bg-black hidden items-center justify-center z-50">
+        <div class="w-full h-full">
+            <div class="absolute top-4 right-4">
+                <button onclick="closeVideoModal()" class="text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="w-full h-full flex items-center justify-center">
+                <iframe 
+                    id="video-iframe"
+                    class="w-full h-full"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                ></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Define Article interface for TypeScript
+        interface Article {
+            id: number;
+            title: string;
+            slug: string;
+            content: string;
+            isVideo: boolean;
+            youtubeId: string;
+            imageUrl: string;
+            category?: {
+                image: string;
+                code: string;
+                name: string;
+                sector: string;
+            };
+            created_at?: string;
+            media_contents: Array<{
+                link: string;
+                kind: string;
+            }>;
+        }
+
+        // Get articles data from the page
+        const articlesData = document.getElementById('articles-data');
+        const articles: Article[] = articlesData ? JSON.parse(articlesData.textContent || '[]') : [];
+
+        function showVideoModal(videoId: string) {
+            const modal = document.getElementById('video-modal');
+            const iframe = document.getElementById('video-iframe') as HTMLIFrameElement;
+            if (modal && iframe) {
+                iframe.src = `https://www.youtube.com/embed/${videoId}`;
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('video-modal');
+            const iframe = document.getElementById('video-iframe') as HTMLIFrameElement;
+            if (modal && iframe) {
+                iframe.src = '';
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(e: MouseEvent) {
+            const videoModal = document.getElementById('video-modal');
+            const target = e.target as HTMLElement;
+            
+            if (videoModal && !videoModal.contains(target) && !target.closest('button[onclick*="showVideoModal"]')) {
+                closeVideoModal();
+            }
+        });
+    </script>
+
+    <!-- Store articles data for JavaScript -->
+    <script type="application/json" is:inline>
+        {JSON.stringify(articles)}
+    </script>
+</Layout>

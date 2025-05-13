@@ -1,0 +1,114 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { getSectors } from "../../../lib/api";
+
+const sectors = await getSectors();
+const solarmaxSector = sectors.find(sector => sector.code === 'SLM');
+const products = solarmaxSector?.list_combos || [];
+
+// Lấy danh sách thiết bị từ tất cả các combo
+const equipmentList = products.reduce((acc: any[], combo) => {
+  combo.grouped_merchandises.forEach(group => {
+    group.pre_quote_merchandises.forEach(item => {
+      const equipment = {
+        ...item.merchandise,
+        template: group.template,
+        quantity: item.quantity,
+        price: item.price
+      };
+      acc.push(equipment);
+    });
+  });
+  return acc;
+}, []);
+
+// Phân loại thiết bị theo template
+const inverters = equipmentList
+    .filter(item => 
+        item.template.code === 'INVERTER_DC_AC' && 
+        item.template.is_main === true &&
+        !item.name.toLowerCase().includes('data logger') &&
+        !item.name.toLowerCase().includes('chống phát ngược') &&
+        !item.name.toLowerCase().includes('dây từ') &&
+        !item.name.toLowerCase().includes('dây mạng')
+    )
+    .reduce((unique: any[], item) => {
+        if (!unique.some(inverter => inverter.name === item.name)) {
+            unique.push(item);
+        }
+        return unique;
+    }, []);
+
+const getPhaseTypeText = (phaseType: string) => {
+    if (phaseType.includes('3-phase high voltage')) {
+        return '3 pha áp cao';
+    } else if (phaseType.includes('3-phase low voltage')) {
+        return '3 pha áp thấp';
+    } else if (phaseType.includes('3-phase')) {
+        return '3 pha';
+    } else if (phaseType.includes('1-phase')) {
+        return '1 pha';
+    }
+    return phaseType;
+};
+---
+
+<Layout title="Biến tần">
+    <div class="bg-white py-24 sm:py-12">
+        <div class="mx-auto max-w-7xl px-4 lg:px-8">
+            <div class="mb-16">
+                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl mb-8">
+                    Biến tần
+                </h2>
+                <div class="grid grid-cols-2 gap-y-4 gap-x-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4 lg:gap-x-4">
+                    {inverters.map((inverter) => (
+                        <div class="bg-white xl:px-4 xl:py-4 px-2 rounded-lg border border-gray-200">
+                            <ul role="list" class="my-4 flex justify-between gap-x-2">
+                                <li>
+                                    <ul role="list" class="flex justify-between gap-x-1">
+                                        {inverter.data_json.installation_type && (
+                                            <li>
+                                                <button type="button" class="inline-flex bg-green-500 text-white items-center gap-x-1.5 rounded-lg px-2.5 py-1.5 xl:text-sm text-md font-semibold shadow-sm">
+                                                    {inverter.data_json.installation_type}
+                                                </button>
+                                            </li>
+                                        )}
+                                        {inverter.data_json.phase_type && (
+                                            <li>
+                                                <button type="button" class="inline-flex bg-green-500 text-white items-center gap-x-1.5 rounded-lg px-2.5 py-1.5 xl:text-sm text-md font-semibold shadow-sm">
+                                                    {getPhaseTypeText(inverter.data_json.phase_type)}
+                                                </button>
+                                            </li>
+                                        )}
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="rounded-lg mx-auto aspect-square w-full flex items-center justify-center mb-4 overflow-hidden">
+                                <img 
+                                    src={inverter.images?.[0]?.link || inverter.data_sheet_link} 
+                                    alt={inverter.name}
+                                    class="w-full h-full object-contain"
+                                />
+                            </div>
+                            <h3 class="text-xl font-medium text-gray-900 mb-2 line-clamp-2">{inverter.name}</h3>
+                            <div class="space-y-2 mb-4">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-500">Công suất AC:</span>
+                                    <span class="font-medium">{inverter.data_json.ac_power_kw}kW</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-500">Công suất DC max:</span>
+                                    <span class="font-medium">{inverter.data_json.dc_max_power_kw}kW</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-500">Bảo hành:</span>
+                                    <span class="font-medium">{inverter.data_json.warranty_years} năm</span>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </div>
+</Layout>

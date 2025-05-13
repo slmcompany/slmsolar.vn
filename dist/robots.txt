@@ -1,0 +1,4 @@
+User-agent: * 
+Disallow: /~partytown
+Allow: /
+Sitemap: https://slmsolar.com/sitemap-index.xml

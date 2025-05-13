@@ -1,0 +1,95 @@
+---
+const aqitems = [
+  {
+    imgSrc: "/images/cau-hoi-ja-solar.jpg",
+    imgAlt: "Tại sao lựa chọn tấm quang năng JA Solar?",
+    heading: "Tại sao lựa chọn tấm quang năng JA Solar?",
+    buttonLink: "https://www.youtube.com/watch?v=dQVjxJ2Sw1I",
+  },
+  {
+    imgSrc: "/images/cau-hoi-chi-so-ip.jpg",
+    imgAlt: "Chỉ số IP là gì? ",
+    heading: "Chỉ số IP là gì ?",
+    buttonLink: "https://www.youtube.com/watch?v=dfttH6Abq1Q",
+  },
+  {
+    imgSrc: "/images/cau-hoi-so-sanh-ongrid-offgrid.jpg",
+    imgAlt: "So sánh điện mặt trời độc lập và bám tải ?",
+    heading: "So sánh điện mặt trời độc lập và bám tải ?",
+    buttonLink: "https://www.youtube.com/watch?v=JXQ3A8eFYmc&t=6s",
+  },
+  {
+    imgSrc: "/images/cau-hoi-mat-bang-di-thu-co-nen-lap-dien-mat-troi.jpg",
+    imgAlt: "Mặt bằng thuê có nên lắp đặt hệ điện mặt trời?",
+    heading: "Mặt bằng thuê có nên lắp  hệ điện mặt trời?",
+    buttonLink: "https://www.youtube.com/watch?v=F3ncsoZqNbs",
+  },
+  {
+    imgSrc: "/images/cau-hoi-10-nam-khong-can-bao-duong.jpg",
+    imgAlt: "10 năm không cần bảo dưỡng hệ điện mặt trời?",
+    heading: "10 năm không cần bảo dưỡng điện NLMT?",
+    buttonLink: "https://www.youtube.com/watch?v=AfRUvQfqvn8&t=3s",
+  },
+  {
+    imgSrc: "/images/cau-hoi-combo-5kw-gia-70-trieu-lieu-co-kha-thi.jpg",
+    imgAlt: "Combo Off-Grid 5kW giá 70 triệu liệu có khả thi?",
+    heading: "Combo 70 triệu cho hệ Off-Grid / off-grid?",
+    buttonLink: "https://www.youtube.com/watch?v=nS0Aah9ekMc",
+  },
+];
+---
+
+<div class="bg-slate-100 py-16 sm:py-12">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl lg:mx-0">
+      <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        Hỏi & Đáp
+      </h1>
+    </div>
+    <ul
+      role="list"
+      class="mx-auto mt-10 grid max-w-2xl grid-cols-2 gap-x-4 gap-y-12 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+    >
+      {
+        aqitems.map((item) => (
+          <li>
+            <div class="relative">
+              <img
+                class="aspect-[2/3] w-full rounded-xl object-cover"
+                src={item.imgSrc}
+                alt={item.imgAlt}
+              />
+              <a
+                href={item.buttonLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button
+                  type="button"
+                  class="absolute left-4 bottom-4 inline-flex items-center gap-x-1.5 rounded-full bg-green-500 px-2.5 py-1.5 text-lg font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    class="size-6"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M2 10a8 8 0 1 1 16 0 8 8 0 0 1-16 0Zm6.39-2.908a.75.75 0 0 1 .766.027l3.5 2.25a.75.75 0 0 1 0 1.262l-3.5 2.25A.75.75 0 0 1 8 12.25v-4.5a.75.75 0 0 1 .39-.658Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  xem video
+                </button>
+              </a>
+            </div>
+            <h3 class="mt-2 lg:text-lg sm:text-xl text-xl font-semibold leading-6 tracking-tight text-gray-900">
+              {item.heading}
+            </h3>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>
