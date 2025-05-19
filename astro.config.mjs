@@ -34,7 +34,7 @@ export default defineConfig({
     playformCompress(),
     partytown({
       config: {
-        // forward: ["dataLayer.push"],
+        forward: ["dataLayer.push"],
       },
     }),
   ],
