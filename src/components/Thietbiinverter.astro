@@ -1,0 +1,154 @@
+---
+const products = [
+{
+  id: 1,
+  thietbi: "Inverter",
+  he: "Off-Grid",
+  pha: "1 Pha",
+  brand: "Solis",
+  congsuat: "5kW",
+  logobrand: "/images/solis.png",  
+  anhsanpham: "/images/thiet-bi/inverter/inverter-solis.png",
+  giaban: "24.800.000",
+  link: "inverter-off-grid-1-pha-solis-5kw",
+  },
+{
+  id: 2,
+  thietbi: "Inverter",
+  he: "Off-Grid",
+  pha: "1 Pha",
+  brand: "Solis",
+  congsuat: "8kW",
+  logobrand: "/images/solis.png",  
+  anhsanpham: "/images/thiet-bi/inverter/inverter-solis.png",
+  giaban: "39.600.000",
+  link: "inverter-off-grid-1-pha-solis-5kw",
+  },
+{
+  id: 3,
+  thietbi: "Inverter",
+  he: "Off-Grid",
+  pha: "3 Pha",
+  brand: "Deyer",
+  congsuat: "12kW - Áp thấp",
+  logobrand: "/images/solis.png",  
+  anhsanpham: "/images/thiet-bi/inverter/inverter-deye.png",
+  giaban: "62.900.000",
+  link: "/Inverter-off-grid-1-pha-solis-5kw/",
+  },
+{
+  id: 4,
+  thietbi: "Inverter",
+  he: "Off-Grid",
+  pha: "3 Pha",
+  brand: "Solis",
+  congsuat: "10kW - Áp cap",
+  logobrand: "/images/solis.png",  
+  anhsanpham: "/images/thiet-bi/inverter/inverter-solis.png",
+   giaban: "41.600.000",
+   link: "/Inverter-off-grid-1-pha-solis-5kw/",
+  },
+{
+  id: 5,
+  thietbi: "Inverter",
+  he: "On-grid",
+  pha: "1 Pha",
+  brand: "Invt",
+  congsuat: "5kW",
+  logobrand: "/images/solis.png",  
+  anhsanpham: "/images/thiet-bi/inverter/inverter-invt.png",
+  giaban: "11.900.000",
+  link: "/Inverter-off-grid-1-pha-solis-5kw/",
+  },
+{
+  id: 6,
+  thietbi: "Inverter",
+  he: "On-grid",
+  pha: "1 Pha",
+  brand: "Invt",
+  congsuat: "8kW",
+  logobrand: "/images/solis.png",  
+  anhsanpham: "/images/thiet-bi/inverter/inverter-invt.png",
+  giaban: "18.600.000",
+  link: "inverter-off-grid-1-pha-solis-5kw",
+  },
+{
+  id: 7,
+  thietbi: "Inverter",
+  he: "On-grid",
+  pha: "3 Pha",
+  brand: "Invt",
+  congsuat: "8kW",
+  logobrand: "/images/solis.png",  
+  anhsanpham: "/images/thiet-bi/inverter/inverter-invt.png",
+  giaban: "15.300.000",
+  link: "inverter-off-grid-1-pha-solis-5kw",
+  },
+{
+  id: 8,
+  thietbi: "Inverter",
+  he: "On-grid",
+  pha: "3 Pha",
+  brand: "Invt",
+  congsuat: "15kW",
+  logobrand: "/images/solis.png",  
+  anhsanpham: "/images/thiet-bi/inverter/inverter-invt.png",
+  giaban: "22.300.000",
+  link: "inverter-off-grid-1-pha-solis-5kw",
+  },
+
+
+];
+---
+
+
+
+<section
+aria-labelledby="product-heading"
+class="mt-6 lg:col-span-2 lg:mt-0 xl:col-span-4"
+>
+<h2 id="product-heading" class="sr-only">Products</h2>
+
+<div
+    class="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:gap-x-8 xl:grid-cols-4"
+>
+{products.map(product => (
+   
+    <div class="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white">
+   
+      <div class="aspect-h-4 aspect-w-3 bg-gray-200 sm:aspect-none group-hover:opacity-75 sm:h-96">
+       
+        <img
+          src={product.anhsanpham}
+          alt={product.thietbi} {product.he} | {product.pha} | {product.brand} - {product.congsuat}
+          class="h-full w-full object-cover object-center sm:h-full sm:w-full"
+        />
+       
+      </div>
+   
+      <div class="flex flex-1 flex-col space-y-2 p-4">
+        <h2 class="text-lg  text-gray-900 ">
+          <a href={`/thiet-bi/${product.link}`}>
+            <span aria-hidden="true" class="absolute inset-0"></span>
+            {product.thietbi} {product.he} | {product.pha} | {product.brand} - {product.congsuat}
+          </a>
+        </h2>
+        {/* <p class="text-sm text-gray-500">{product.description}</p> */}
+        <div
+                class="flex flex-1 flex-col justify-end"
+            >
+               
+                <p
+                    class="font-medium text-center bg-red-500 rounded-md text-white p-2 text-2xl"
+                >
+                    {product.giaban} <sup>đ<sup>
+                </p>
+            </div>
+       
+      </div>
+    </div>
+ 
+  ))}    
+
+</div>
+</section>

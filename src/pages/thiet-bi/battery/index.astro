@@ -1,0 +1,85 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { getSectors } from "../../../lib/api";
+
+const sectors = await getSectors();
+const solarmaxSector = sectors.find(sector => sector.code === 'SLM');
+const products = solarmaxSector?.list_combos || [];
+
+// Lấy danh sách thiết bị từ tất cả các combo
+const equipmentList = products.reduce((acc: any[], combo) => {
+  combo.grouped_merchandises.forEach(group => {
+    group.pre_quote_merchandises.forEach(item => {
+      const equipment = {
+        ...item.merchandise,
+        template: group.template,
+        quantity: item.quantity,
+        price: item.price
+      };
+      acc.push(equipment);
+    });
+  });
+  return acc;
+}, []);
+
+// Phân loại thiết bị theo template
+const batteries = equipmentList
+    .filter(item => 
+        (item.template.code === 'BATTERY' || 
+        item.name.toLowerCase().includes('pin') || 
+        item.name.toLowerCase().includes('lithium')) &&
+        !item.name.toLowerCase().includes('dây từ') &&
+        !item.name.toLowerCase().includes('dây mạng')
+    )
+    .reduce((unique: any[], item) => {
+        if (!unique.some(battery => battery.name === item.name)) {
+            unique.push(item);
+        }
+        return unique;
+    }, []);
+---
+
+<Layout title="Pin Lithium">
+    <div class="bg-white py-24 sm:py-12">
+        <div class="mx-auto max-w-7xl px-4 lg:px-8">
+            <div class="mb-16">
+                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl mb-8">
+                    Pin Lithium
+                </h2>
+                <div class="grid grid-cols-2 gap-y-4 gap-x-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4 lg:gap-x-4">
+                    {batteries.map((battery) => (
+                        <div class="bg-white xl:px-4 xl:py-4 px-2 rounded-lg border border-gray-200">
+                            <ul role="list" class="my-4 flex justify-between gap-x-2">
+                                <li>
+                                    <ul role="list" class="flex justify-between gap-x-1">
+                                        {battery.data_json.installation_type && (
+                                            <li>
+                                                <button type="button" class="inline-flex bg-green-500 text-white items-center gap-x-1.5 rounded-lg px-2.5 py-1.5 xl:text-sm text-md font-semibold shadow-sm">
+                                                    {battery.data_json.installation_type}
+                                                </button>
+                                            </li>
+                                        )}
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="rounded-lg mx-auto aspect-square w-full flex items-center justify-center mb-4 overflow-hidden">
+                                <img 
+                                    src={battery.images?.[0]?.link || battery.data_sheet_link} 
+                                    alt={battery.name}
+                                    class="w-full h-full object-contain"
+                                />
+                            </div>
+                            <h3 class="text-xl font-medium text-gray-900 mb-2 line-clamp-2">{battery.name}</h3>
+                            <div class="space-y-2 mb-4">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-500">Bảo hành:</span>
+                                    <span class="font-medium">{battery.data_json.warranty_years} năm</span>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </div>
+</Layout>

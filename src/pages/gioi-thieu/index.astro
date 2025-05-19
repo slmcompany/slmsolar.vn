@@ -1,0 +1,339 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const items = [
+    { title: "Khách hàng", value: "1,000+" },
+    { title: "Kinh nghiệm", value: "10 năm" },
+    { title: "Miền Bắc", value: "4 kho" },
+    { title: "Đối tác toàn cầu", value: "Top 3" },
+];
+---
+
+<Layout title="Giới thiệu">
+    <div class="bg-white">
+        <main class="isolate">
+            <div class="bg-white">
+                <div
+                    class="relative isolate overflow-hidden bg-gradient-to-b from-indigo-100/20"
+                >
+                    <div
+                        class="mx-auto max-w-7xl pb-12 pt-10 sm:pb-4 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:px-8 lg:py-10"
+                    >
+                        <div class="px-6 lg:px-0 lg:pt-4">
+                            <div class="mx-auto max-w-2xl">
+                                <div class="max-w-lg w-4/5">
+                                    <h1
+                                        class="mt-10 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl"
+                                    >
+                                        Giới thiệu <br />về SoLarMax
+                                    </h1>
+                                    <p
+                                        class="mt-6 text-lg leading-8 text-gray-600"
+                                    >
+                                        Thương hiệu SoLarMax, trực thuộc Công ty
+                                        cổ phần đầu tư SLM.
+                                    </p>
+                                    <p
+                                        class="mt-6 text-lg leading-8 text-gray-600"
+                                    >
+                                        Công ty tham gia lĩnh vực năng lượng mặt
+                                        trời từ những ngày đầu tiên của ngành
+                                        tại Việt Nam. Tham gia cung cấp giải
+                                        pháp mũi neo và hệ khung giàn đỡ pin cho
+                                        Dự án điện mặt trời Phong Phú (50 MW)
+                                        tại Bình Thuận. Năm 2020, Điểm nhấn rõ
+                                        ràng nhất là cung cấp 20,000 (ton) kết
+                                        cấu thép khung đỡ pin mặt trời, cho dự
+                                        án Điện Mặt Trời EaSup (600MW), tại
+                                        DakLak.
+                                    </p>
+                                </div>
+                                <div
+                                    class="mt-10 text-lg leading-8 text-gray-600 w-4/5"
+                                >
+                                    <p>
+                                        Từ 2023, SoLarMax tập trung vào giải
+                                        pháp điện mặt trời áp mái cho thị trường
+                                        công nghiệp và dân dụng. Ngoài SoLarMax,
+                                        thì Công ty cổ phần đầu tư SLM còn sở
+                                        hữu các thương hiệu sau:
+                                    </p>
+
+                                    <ul class="list-none ">
+                                        <li>
+                                            <div class="pt-10">
+                                                <span class="font-semibold"
+                                                >
+                                                <img
+                                                    src="/images/eliton-logo.svg"
+                                                    alt="SLM"
+                                                    class="h-10 inline "
+                                                />
+                                            </span>
+                                            <p class="pt-2">
+                                                Giải pháp thang máy cho thị
+                                                trường dân dụng
+
+                                            </p>
+                                            
+                                            </div>
+                                          
+                                        </li>
+                                        <li>
+                                            <div class="pt-10">
+                                                <span class="font-semibold"
+                                                >
+                                                <img
+                                                src="/images/slmglobal-logo.svg"
+                                                alt="SLM"
+                                                class="h-10 inline"
+                                            />
+                                            </span>
+                                            <p class="pt-2">
+                                                Xuất khẩu
+                                                giải pháp giàn giáo và mũi neo cho
+                                                ngành xây dựng và điện mặt trời.
+
+                                            </p>
+                                            
+                                            </div>
+                                          
+                                        </li>
+                                     
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="mt-20 sm:mt-2 md:mx-auto md:max-w-2xl lg:mx-0 lg:mt-0 lg:w-screen"
+                        >
+                            <div
+                                class="absolute inset-y-0 right-1/2 -z-10 -mr-10 w-[200%] skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 md:-mr-20 lg:-mr-36"
+                                aria-hidden="true"
+                            >
+                            </div>
+                            <div class="">
+                                <img
+                                    class="object-cover w-full h-96 md:h-96 lg:h-full"
+                                    src="/images/banner-dien-mat-troi-xuan-thien.jpeg"
+                                    alt=""
+                                />
+                            </div>
+                            <h2 class="mt-2 text-center text-lg text-gray-600">
+                                Dự án điện mặt trời EaSup (600MW), tại DakLak
+                            </h2>
+                        </div>
+                    </div>
+                    <div
+                        class="absolute inset-x-0 bottom-0 -z-10 h-24 bg-gradient-to-t from-white sm:h-32"
+                    >
+                    </div>
+                </div>
+            </div>
+            <h1
+            class="text-left tracking-tight text-4xl p-6 font-bold leading-10 text-gray-900 block sm:block lg:hidden"
+        >
+            Chúng tôi có
+        </h1>
+            <dl
+                class="grid grid-cols-2 gap-0.5 overflow-hidden lg:rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-4 lg:mx-48"
+            >
+                {
+                    items.map((item) => (
+                        <div class="flex flex-col bg-red-600 p-8 lg:p-8 sm:p-1">
+                            <dt class="font-semibold text-md leading-6 text-white">
+                                {item.title}
+                            </dt>
+                            <dd class="order-first text-4xl font-semibold tracking-tight text-white">
+                                {item.value}
+                            </dd>
+                        </div>
+                    ))
+                }
+            </dl>
+
+            <div class="relative isolate -z-10 mt-16 sm:mt-12">
+                <div
+                    class="absolute inset-x-0 top-1/2 -z-10 flex -translate-y-1/2 justify-center overflow-hidden [mask-image:radial-gradient(50%_45%_at_50%_55%,white,transparent)]"
+                >
+                    <svg
+                        class="h-[40rem] w-[80rem] flex-none stroke-gray-200"
+                        aria-hidden="true"
+                    >
+                        <defs>
+                            <pattern
+                                id="e9033f3e-f665-41a6-84ef-756f6778e6fe"
+                                width="200"
+                                height="200"
+                                x="50%"
+                                y="50%"
+                                patternUnits="userSpaceOnUse"
+                                patternTransform="translate(-100 0)"
+                            >
+                                <path d="M.5 200V.5H200" fill="none"></path>
+                            </pattern>
+                        </defs>
+                        <svg
+                            x="50%"
+                            y="50%"
+                            class="overflow-visible fill-gray-50"
+                        >
+                            <path
+                                d="M-300 0h201v201h-201Z M300 200h201v201h-201Z"
+                                stroke-width="0"></path>
+                        </svg>
+                        <rect
+                            width="100%"
+                            height="100%"
+                            stroke-width="0"
+                            fill="url(#e9033f3e-f665-41a6-84ef-756f6778e6fe)"
+                        ></rect>
+                    </svg>
+                </div>
+                <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                    <h1
+                        class="text-left tracking-tight text-4xl font-bold leading-10 text-gray-900 block sm:block lg:hidden"
+                    >
+                        Đối tác
+                    </h1>
+                    <h1
+                        class="text-center tracking-tight text-4xl font-bold leading-10 text-gray-900 hidden sm:hidden lg:block"
+                    >
+                        Đối tác thương hiệu của SoLarMax
+                    </h1>
+                    <div
+                        class="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-6"
+                    >
+                        <img
+                            class="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+                            src="/images/brand-ja-solar-logo.svg"
+                            alt="ja-solar"
+                        />
+                        <img
+                        class="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+                        src="/images/longi-logo.png"
+                        alt="longi"
+                    />
+                        <img
+                            class="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+                            src="/images/brand-solis-logo.svg"
+                            alt="solis"
+                        />
+                        <img
+                        class="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
+                        src="/images/brand-invt-logo.png"
+                        alt="invt"
+                    />
+                    <img
+                    class="col-span-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
+                    src="/images/brand-easyway-logo.svg"
+                    alt="easyway"
+                />
+                        <img
+                            class="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
+                            src="/images/dyness-logo.png"
+                            alt="dyness"
+                        />
+                    
+                       
+                      
+                    </div>
+                </div>
+            </div>
+
+            <div class="mx-auto mt-16 pb-16 max-w-7xl px-6 sm:mt-40 lg:px-8">
+                <div
+                    class="mx-auto flex max-w-2xl flex-col items-end justify-between gap-16 lg:mx-0 lg:max-w-none lg:flex-row"
+                >
+                    <div class="w-full lg:max-w-lg lg:flex-auto">
+                        <h1
+                            class="block sm:block lg:hidden text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+                        >
+                            Sứ mệnh <br />Mục tiêu <br />Giá trị
+                        </h1>
+                        <h1
+                            class="text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl hidden sm:hidden lg:block"
+                        >
+                            Sứ mệnh - Mục tiêu - Giá trị
+                        </h1>
+
+                        <img
+                            src="/images/banner-solar.jpg"
+                            alt=""
+                            class="sm:hidden hidden lg:block mt-8 aspect-[6/5] w-full rounded-2xl bg-gray-50 object-cover lg:aspect-auto lg:h-[34.5rem]"
+                        />
+                    </div>
+                    <div class="w-full lg:max-w-xl lg:flex-auto">
+                        <ul class="-my-8 divide-y divide-gray-100">
+                            <li class="py-4">
+                                <dl class="relative flex flex-wrap gap-x-3">
+                                    <dt class="sr-only">Role</dt>
+                                    <dd
+                                        class="w-full flex-none text-lg font-semibold tracking-tight text-gray-900"
+                                    >
+                                        <a href="#">
+                                            Sứ mệnh SoLarMax
+                                            <span
+                                                class="absolute inset-0"
+                                                aria-hidden="true"></span>
+                                        </a>
+                                    </dd>
+                                    <dt class="sr-only">Description</dt>
+                                    <dd
+                                        class="mt-2 w-full flex-none text-base leading-7 text-gray-600"
+                                    >
+                                        Điện Xanh Mái Nhà Việt
+                                    </dd>
+                                </dl>
+                            </li>
+                            <li class="py-4">
+                                <dl class="relative flex flex-wrap gap-x-3">
+                                    <dt class="sr-only">Role</dt>
+                                    <dd
+                                        class="w-full flex-none text-lg font-semibold tracking-tight text-gray-900"
+                                    >
+                                        <a href="#">
+                                            Mục tiêu SoLarMax
+                                            <span
+                                                class="absolute inset-0"
+                                                aria-hidden="true"></span>
+                                        </a>
+                                    </dd>
+                                    <dt class="sr-only">Description</dt>
+                                    <dd
+                                        class="mt-2 w-4/5 flex-none text-base leading-7 text-gray-600"
+                                    >
+                                        Đến năm 2030, Solarmax hoàn thành lắp
+                                        đặt 1 triệu m2 tấm pin năng lượng mặt
+                                        trời cho mái nhà Việt
+                                    </dd>
+                                </dl>
+                            </li>
+                            <li class="py-4">
+                                <dl class="relative flex flex-wrap gap-x-3">
+                                    <dt class="sr-only">Role</dt>
+                                    <dd
+                                        class="w-full flex-none text-lg font-semibold tracking-tight text-gray-900"
+                                    >
+                                        <a href="#">
+                                            Giá trị cốt lõi
+                                            <span
+                                                class="absolute inset-0"
+                                                aria-hidden="true"></span>
+                                        </a>
+                                    </dd>
+                                    <dt class="sr-only">Description</dt>
+                                    <dd
+                                        class="mt-2 w-full flex-none text-base leading-7 text-gray-600"
+                                    >
+                                        Tin - Tốc - Tín
+                                    </dd>
+                                </dl>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</Layout>
