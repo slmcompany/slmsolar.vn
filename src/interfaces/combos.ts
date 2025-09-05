@@ -38,6 +38,7 @@ export interface Combo {
                     code: string;
                 };
             };
+            price_on_gm: number;
         }[];
     }[];
 }

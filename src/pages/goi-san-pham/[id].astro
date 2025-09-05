@@ -62,6 +62,7 @@ interface PreQuoteMerchandise {
   price: number;
   merchandise: Merchandise;
   gm?: number;
+  price_on_gm: number;
 }
 
 interface GroupedMerchandise {
@@ -418,7 +419,8 @@ const getPhaseTypeText = (phaseType: string | undefined) => {
                     )}
                     <div class="flex justify-between items-center mt-2">
                       <p class="text-base text-red-600 font-semibold">
-                        {formatCurrency(calculatePriceWithGM(firstItem.price, firstItem.gm))}đ
+                        {formatCurrency(firstItem.price_on_gm)}đ
+                        {/* {formatCurrency(calculatePriceWithGM(firstItem.price, firstItem.gm))}đ */}
                       </p>
                       <div class="flex items-center gap-1">
                         <p class="text-xs text-gray-500 font-medium">Số lượng</p>
