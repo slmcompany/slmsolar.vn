@@ -71,9 +71,16 @@ import "@fontsource/twinkle-star";
 
     <Callbox
       client:load
-      phone={PHONE_NUMBER}
+      phone={""}
       message="Liên hệ tư vấn trực tiếp"
     />
+    <script type="module">
+  import { getPhoneNumberByDomain } from "../utils/phone";
+  const callbox = document.querySelector("callbox-selector"); // sửa lại selector cho đúng
+  if (callbox) {
+    callbox.phone = getPhoneNumberByDomain();
+  }
+</script>
   </body>
 </html>
 <style is:global>
