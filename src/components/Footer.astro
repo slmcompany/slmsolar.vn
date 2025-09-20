@@ -73,10 +73,30 @@ const locations = [
                             </svg>
                 </dt>
                 <dd>
-                    <a class="text-white " href="https://wa.me/84969663387"
-                        >+84 (96) 966-3387</a
+                    <a
+                        class="text-white"
+                        href="mailto:sale@slmsoalr.com"
+                        >sale@slmsoalr.com</a
                     >
                 </dd>
+                <script>
+                    const phone = (function() {
+                        const DOMAIN_PHONE_MAP = {
+                        "slmsolar.com": "0964920242",
+                        "slmsolar.com.vn": "0977879291",
+                        "slmsolar.vn": "0929884950",
+                        };
+                        const domain = window.location.hostname.replace(/^www\./, "");
+                        // @ts-ignore
+                        return DOMAIN_PHONE_MAP[domain] || "0929884950";
+                    })();
+                    const phoneEl = document.getElementById("dynamic-phone");
+                    if (phoneEl) {
+                        // @ts-ignore
+                        phoneEl.href = `https://wa.me/84${phone.slice(1)}`;
+                        phoneEl.textContent = `+84 (${phone.slice(1,3)}) ${phone.slice(3,6)}-${phone.slice(6)}`;
+                    }
+                </script>
             </div>
             <div class="flex gap-x-4">
                 <dt class="flex-none">
