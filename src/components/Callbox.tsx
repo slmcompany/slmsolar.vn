@@ -1,13 +1,22 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { getPhoneNumberByDomain } from "../utils/phone";
+import { useEffect, useState } from "react";
 interface CallBoxModuleProps {
   phone: string;
   message: string;
 }
 
-const CallBoxModule: React.FC<CallBoxModuleProps> = ({ phone, message }) => (
+const CallBoxModule: React.FC<CallBoxModuleProps> = ({ phone, message }) => {
+  const [phone_new, setPhone] = useState("");
+
+  useEffect(() => {
+    const domain = window.location.hostname.replace(/^www\./, "");
+    setPhone(getPhoneNumberByDomain(domain));
+  }, []);
+  return (
   <>
-    <a href={`tel:${phone}`} target="_blank">
+    <a href={`tel:${phone_new}`} target="_blank">
       <div
         style={{
           width: "80%",
@@ -150,5 +159,6 @@ const CallBoxModule: React.FC<CallBoxModuleProps> = ({ phone, message }) => (
     </a>
   </>
 );
+}
 
 export default CallBoxModule;

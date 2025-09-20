@@ -5,10 +5,14 @@ const DOMAIN_PHONE_MAP: Record<string, string> = {
 };
 
 export function getPhoneNumberByDomain(domain?: string): string {
-    if (!domain && typeof window !== "undefined") {
-        domain = window.location.hostname.replace(/^www\./, "");
+    if (typeof window !== "undefined") {
+        // Đảm bảo code chỉ chạy ở client-side
+        setTimeout(() => {
+            domain = window.location.hostname.replace(/^www\./, "");
+            console.log("Detected domain:", domain);
+        }, 0);
     }
-    return DOMAIN_PHONE_MAP[domain || "slmsolar.vn"] || "0929884950";
+    return DOMAIN_PHONE_MAP[domain || "slmsolar.com"] || "0929884950";
 }
 
 export const PHONE_NUMBER = getPhoneNumberByDomain();
