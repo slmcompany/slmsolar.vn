@@ -1,6 +1,6 @@
 const DOMAIN_PHONE_MAP: Record<string, string> = {
     "slmsolar.com": "0964920242",
-    "slmsolar.com.vn": "0977879291",
+    "slmsolar.com.vn": "0969663387",
     "slmsolar.vn": "0929884950",
 };
 
