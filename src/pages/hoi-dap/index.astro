@@ -104,7 +104,8 @@ const articles = sector1?.list_contents
         <div class="container mx-auto px-0 md:px-4 max-w-7xl">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 md:gap-4">
                 {articles.map((article: Article) => (
-                    <div class="bg-white overflow-hidden border-t border-b border-gray-100">
+                    <div class="bg-white overflow-hidden border-t border-b border-gray-100"
+                    data-article-type={article.isVideo ? "video" : "article"}>
                         <!-- User Info Bar -->
                         <div class="flex items-center p-4 border-b border-gray-100">
                             <img 
@@ -192,6 +193,8 @@ const articles = sector1?.list_contents
         </div>
     </div>
 
+
+
     <script>
         // Define Article interface for TypeScript
         interface Article {
@@ -253,5 +256,17 @@ const articles = sector1?.list_contents
     <!-- Store articles data for JavaScript -->
     <script type="application/json" is:inline>
         {JSON.stringify(articles)}
+    </script>
+
+    <script>
+        // Xoá các bài viết dạng video nếu domain là slmsolar.com.vn
+        document.addEventListener("DOMContentLoaded", function () {
+            const domain = window.location.hostname.replace(/^www\./, "");
+            if (domain === "slmsolar.com.vn") {
+                document.querySelectorAll('[data-article-type="video"]').forEach(function(el) {
+                    el.remove();
+                });
+            }
+        });
     </script>
 </Layout>
