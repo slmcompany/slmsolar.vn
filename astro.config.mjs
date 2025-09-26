@@ -26,7 +26,7 @@ export default defineConfig({
           disallow: ['/~partytown'],
           sitemap: "https://slmsolar.com/sitemap-index.xml"
         },
-   
+  
       
       ],
     }

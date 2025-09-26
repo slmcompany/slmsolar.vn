@@ -189,5 +189,16 @@ const cleanedContent = cleanHtmlContent(article.attributes.content);
                 }
             }
         });
+
+        document.addEventListener("astro:page-load", function () {
+            const domain = window.location.hostname.replace(/^www\./, "");
+            if (domain === "slmsolar.com.vn") {
+                const contentArea = document.getElementById("content-area");
+                // Nếu trong conternt có đoạn Tầng 5, Toà Diamond Plaza Tower, Hoàng Đạo Thuý, Hà Nội thì thay bằng XXXXX
+                if(contentArea) {
+                    contentArea.innerHTML = contentArea.innerHTML.replace(/Tầng 5, Toà Diamond Plaza Tower, Hoàng Đạo Thuý, Hà Nội/gi, "Số 32, Đường số 5, Lovera Park Khang Điền, Xã Bình Hưng, Hồ Chí Minh");
+                }
+            }
+        });
     </script>
 </Layout> 
