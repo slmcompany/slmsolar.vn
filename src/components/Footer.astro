@@ -310,8 +310,8 @@ const locations = [
                         officeEl.textContent = office_address;
                     }
 
-
-                    const LOCATIONS = [
+                    function renderLocations() {
+                        const LOCATIONS = [
                             {
                             name: "Kho Hà Nội",
                             address: "Đường Hoàng Sa, Đông Anh, TP.Hà Nội",
@@ -359,5 +359,8 @@ const locations = [
                             </div>
                             `).join('');
                         }
+                    }
+                    document.addEventListener("astro:page-load", renderLocations);
+                    document.addEventListener("DOMContentLoaded", renderLocations);
                 </script>
 </footer>
