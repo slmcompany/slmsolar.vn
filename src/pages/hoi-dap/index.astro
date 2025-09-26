@@ -268,5 +268,13 @@ const articles = sector1?.list_contents
                 });
             }
         });
+        document.addEventListener("astro:page-load", function () {
+            const domain = window.location.hostname.replace(/^www\./, "");
+            if (domain === "slmsolar.com.vn") {
+                document.querySelectorAll('[data-article-type="video"]').forEach(function(el) {
+                    el.remove();
+                });
+            }
+        });
     </script>
 </Layout>

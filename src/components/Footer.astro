@@ -271,43 +271,33 @@ const locations = [
         </div>
     </div>
     <script>
-                    const phone = (function() {
+                    function updateContactInfo() {
                         const DOMAIN_PHONE_MAP = {
-                        "slmsolar.com": "0964920242",
-                        "slmsolar.com.vn": "0969663387",
-                        "slmsolar.vn": "0929884950",
+                            "slmsolar.com": "0964920242",
+                            "slmsolar.com.vn": "0969663387",
+                            "slmsolar.vn": "0929884950",
                         };
                         const DOMAIN_OFFICE_MAP = {
-                        "slmsolar.com":"Văn phòng Hà Nội: Tầng 5, tòa nhà Diamond Flower Tower, Phố Hoàng Đạo Thúy, Phường Nhân Chính, Quận Thanh Xuân, Thành phố Hà Nội, Việt Nam",
-                        "slmsolar.com.vn":"Văn phòng HCM: Số 32, Lovera Park, KDC Phong Phú 4, Xã Bình Hưng, Quận Bình Chánh, HCM, Việt Nam",
-                        "slmsolar.vn":"Văn phòng Hà Nội: Tầng 5, tòa nhà Diamond Flower Tower, Phố Hoàng Đạo Thúy, Phường Nhân Chính, Quận Thanh Xuân, Thành phố Hà Nội, Việt Nam",
+                            "slmsolar.com": "Trụ sở: Tầng 5, tòa nhà Diamond Flower Tower, Phố Hoàng Đạo Thúy, Phường Nhân Chính, Quận Thanh Xuân, Thành phố Hà Nội, Việt Nam",
+                            "slmsolar.com.vn": "Trụ sở: Số 32, Đường số 5, Lovera Park Khang Điền, Xã Bình Hưng, Hồ Chí Minh, Việt Nam",
+                            "slmsolar.vn": "Trụ sở: Tầng 5, tòa nhà Diamond Flower Tower, Phố Hoàng Đạo Thúy, Phường Nhân Chính, Quận Thanh Xuân, Thành phố Hà Nội, Việt Nam",
                         };
                         const domain = window.location.hostname.replace(/^www\./, "");
-                        // @ts-ignore
-                        return DOMAIN_PHONE_MAP[domain] || "0929884950";
-                    })();
+                        //@ts-ignore
+                        const phone = DOMAIN_PHONE_MAP[domain] || "0929884950";
+                        //@ts-ignore
+                        const office_address = DOMAIN_OFFICE_MAP[domain] || DOMAIN_OFFICE_MAP["slmsolar.vn"];
 
-                    const office_address = (function() {
-                        const DOMAIN_OFFICE_MAP = {
-                        "slmsolar.com":"Trụ sở: Tầng 5, tòa nhà Diamond Flower Tower, Phố Hoàng Đạo Thúy, Phường Nhân Chính, Quận Thanh Xuân, Thành phố Hà Nội, Việt Nam",
-                        "slmsolar.com.vn":"Trụ sở: Số 32, Đường số 5, Lovera Park Khang Điền, Xã Bình Hưng, Hồ Chí Minh, Việt Nam",
-                        "slmsolar.vn":"Trụ sở: Tầng 5, tòa nhà Diamond Flower Tower, Phố Hoàng Đạo Thúy, Phường Nhân Chính, Quận Thanh Xuân, Thành phố Hà Nội, Việt Nam",
-                        };
-                        const domain = window.location.hostname.replace(/^www\./, "");
-                        // @ts-ignore
-                        return DOMAIN_OFFICE_MAP[domain] || "Văn phòng Hà Nội: Tầng 5, tòa nhà Diamond Flower Tower, Phố Hoàng Đạo Thúy, Phường Nhân Chính, Quận Thanh Xuân, Thành phố Hà Nội, Việt Nam";
-                    })();
-
-                    const phoneEl = document.getElementById("dynamic-phone");
-                    if (phoneEl) {
-                        // @ts-ignore
-                        phoneEl.href = `https://wa.me/84${phone.slice(1)}`;
-                        phoneEl.textContent = `+84 (${phone.slice(1,3)}) ${phone.slice(3,6)}-${phone.slice(6)}`;
-                    }
-                    const officeEl = document.getElementById("office-address");
-                    if (officeEl) {
-                        // @ts-ignore
-                        officeEl.textContent = office_address;
+                        const phoneEl = document.getElementById("dynamic-phone");
+                        if (phoneEl) {
+                            //@ts-ignore
+                            phoneEl.href = `https://wa.me/84${phone.slice(1)}`;
+                            phoneEl.textContent = `+84 (${phone.slice(1,3)}) ${phone.slice(3,6)}-${phone.slice(6)}`;
+                        }
+                        const officeEl = document.getElementById("office-address");
+                        if (officeEl) {
+                            officeEl.textContent = office_address;
+                        }
                     }
 
                     function renderLocations() {
@@ -362,5 +352,7 @@ const locations = [
                     }
                     document.addEventListener("astro:page-load", renderLocations);
                     document.addEventListener("DOMContentLoaded", renderLocations);
+                    document.addEventListener("astro:page-load", updateContactInfo);
+                    document.addEventListener("DOMContentLoaded", updateContactInfo);
                 </script>
 </footer>
