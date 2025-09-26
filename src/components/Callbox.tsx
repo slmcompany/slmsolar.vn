@@ -16,7 +16,10 @@ const CallBoxModule: React.FC<CallBoxModuleProps> = ({ phone, message }) => {
   }, []);
   return (
   <>
-    <a href={`tel:${phone_new}`} target="_blank">
+    <a href={`tel:${phone_new}`} target="_blank" onClick={() => {
+      // @ts-ignore
+      gtag('event', 'conversion', {'send_to': 'AW-17576494653/eO6DCK2f9KEbEL2MkL1B'});}
+      }>
       <div
         style={{
           width: "80%",
