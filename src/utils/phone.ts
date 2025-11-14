@@ -1,7 +1,7 @@
 const DOMAIN_PHONE_MAP: Record<string, string> = {
     "slmsolar.com": "0964920242",
     "slmsolar.com.vn": "0969663387",
-    "slmsolar.vn": "0929884950",
+    "slmsolar.vn": "0976666905",
 };
 
 export function getPhoneNumberByDomain(domain?: string): string {
@@ -12,7 +12,7 @@ export function getPhoneNumberByDomain(domain?: string): string {
             console.log("Detected domain:", domain);
         }, 0);
     }
-    return DOMAIN_PHONE_MAP[domain || "slmsolar.com"] || "0929884950";
+    return DOMAIN_PHONE_MAP[domain || "slmsolar.com"] || "0976666905";
 }
 
 export const PHONE_NUMBER = getPhoneNumberByDomain();
